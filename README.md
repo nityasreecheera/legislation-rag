@@ -7,6 +7,19 @@ cited to a specific document, section and page, and labelled by whether the
 source is enacted law, a draft proposal, or advocacy - and by which jurisdiction
 it belongs to.
 
+## Quickstart
+
+```bash
+unzip legislation-rag.zip && cd legislation-rag
+./setup.sh                                    # ~5 min, builds the index
+cp .env.example .env                          # paste an Anthropic API key into it
+.venv/bin/python src/chat.py                  # ask questions
+```
+
+Needs **Python 3.10+** and macOS or Linux. `setup.sh` installs Tesseract via
+Homebrew if it is missing; on Linux use `apt install tesseract-ocr` first. The
+source documents are in the repo, so nothing else has to be downloaded.
+
 ## Install
 
 ```bash
@@ -14,8 +27,9 @@ it belongs to.
 ```
 
 Creates a virtualenv, installs dependencies, installs Tesseract if missing, and
-builds the index from the PDFs in `data/raw/`. Takes about five minutes, most of
-it embedding 2,383 chunks.
+builds the index from the documents in `data/raw/`. Takes about five minutes,
+most of it embedding 2,383 chunks. Run it again any time to rebuild from
+scratch.
 
 Then add an API key for the generation step:
 
@@ -23,7 +37,8 @@ Then add an API key for the generation step:
 cp .env.example .env    # then edit .env and paste your key
 ```
 
-Get one at <https://console.anthropic.com/settings/keys>.
+Get one at <https://console.anthropic.com/settings/keys>. Without a key the chat
+exits with instructions rather than a stack trace.
 
 **Retrieval works without a key** — only answer generation needs one:
 
