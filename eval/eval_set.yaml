@@ -81,13 +81,23 @@ questions:
     expect_sections:
       - {doc_id: hr1-enrolled, section: "50305"}
       - {doc_id: hr1-house-passed, section: "80310"}
-    forbid_phrases: ["identical"]
+    expect_phrases: ["40,000,000"]
     ground_truth: >
-      Both appropriate $150,000,000, but they differ: the enrolled text directs
-      it through the Director of the National Park Service for FY2025, while the
-      House version appropriates to the Secretary of the Interior with funds
-      remaining available through FY2028. A correct answer notes a difference
-      rather than declaring them the same.
+      No. Both appropriate $150,000,000 for the anniversary itself, both for
+      fiscal year 2025, both remaining available through fiscal year 2028 - so
+      the headline number is identical.
+
+      The difference is what sits beside it. The House version appropriates a
+      SECOND $40,000,000 to establish a National Garden of American Heroes
+      statuary park, carrying out Executive Orders 13934, 13978 and 14189. That
+      appropriation does not appear in the enacted bill. The enrolled version
+      also routes the money through the Director of the National Park Service,
+      where the House version appropriates to the Secretary of the Interior
+      directly.
+
+      A correct answer identifies the dropped $40,000,000 as the substantive
+      difference. Answering only on the matching $150,000,000 misses the point
+      of the question.
 
   - id: house-only-provision
     category: authority

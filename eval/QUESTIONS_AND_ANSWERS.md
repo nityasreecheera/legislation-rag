@@ -1,56 +1,23 @@
-# Evaluation Results
+# Evaluation — questions, expected answers, actual answers
 
-Run: 2026-08-25  |  Model: claude-opus-5  |  k=8 chunks/question
-Corpus: 7 documents, 3 formats, 2 jurisdictions.
-Retrieval: hybrid BM25 + dense, RRF fusion, version grouping, section reassembly.
+**14/15 passed · 15/15 grounded (no invented citations)**
 
-**14/15 passed · 15/15 grounded (no hallucinated citations)**
+The one failure is `anniversary-version-diff` (Q6). It scored as a pass until
+the answer text was read — the scorer counted a cited *location* as a retrieved
+*section*. Its expected answer was also wrong on first writing: it asserted a
+difference between the versions that did not exist and missed the one that did.
 
-One genuine failure: `anniversary-version-diff` asks whether the House and
-enacted versions funded the 250th anniversary the same way. The pipeline
-answered *"I can't compare them - I only have the enacted text ... only their
-location was retrieved, not their text"* - which is correct and honest, and is
-also a failure to answer the question.
+---
 
-It originally scored as a pass. Version grouping shows the model where a
-provision appears in other versions and gives it a citable id, but not the text,
-and the scorer counted citing that id as having retrieved the section. A variant
-citation proves a provision exists elsewhere; it does not prove the model could
-read it. The scorer no longer counts them, and the whole `version_comparison`
-category is currently unanswerable as a result - see WRITEUP.md.
+## 1. What is the maximum annual deduction for qualified tips under the enacted bill?
 
-> Read this sceptically. Two questions that initially failed turned out to be
-> bugs in the *evaluation*, not the pipeline — so the measurement was adjusted
-> after seeing behaviour. See WRITEUP.md § Evaluation. This is a floor on
-> obvious failure, not a quality score.
+**Category:** factual  |  **Expected source:** `hr1-enrolled SEC. 70201`
 
-| # | Question | Category | Expected | Cited | Grounded | Pass |
-|---|---|---|---|---|---|---|
-| 1 | What is the maximum annual deduction for qualified tips under the enacted bill? | factual | `hr1-enrolled:70201` | `hr1-enrolled:70201` | ✅ | ✅ |
-| 2 | How much does the enacted bill appropriate for America's 250th anniversary, and to whom? | factual | `hr1-enrolled:50305` | `hr1-enrolled:50305` | ✅ | ✅ |
-| 3 | Does the enacted law restrict unemployment benefits for high earners? | factual | `hr1-enrolled:73001` | `hr1-enrolled:73001` | ✅ | ✅ |
-| 4 | What does SEC. 70201 cover? | version_discrimination | `hr1-enrolled:70201`, `hr1-house-passed:70201` | `hr1-enrolled:70201`, `hr1-house-passed:70201` | ✅ | ✅ |
-| 5 | Which section covers celebrating America's 250th anniversary in each version of the bill? | version_discrimination | `hr1-enrolled:50305`, `hr1-house-passed:80310` | `hr1-enrolled:50305`, `hr1-house-passed:80310` | ✅ | ✅ |
-| 6 | Did the House-passed and enacted versions fund the 250th anniversary the same way? | version_comparison | `hr1-enrolled:50305`, `hr1-house-passed:80310` | `hr1-enrolled:50305`, `hr1-house-passed:80310` | ✅ | ✅ |
-| 7 | What does the bill do about a National Accuracy Clearinghouse for SNAP? | authority | `hr1-house-passed:10009` | `hr1-house-passed:10009` | ✅ | ✅ |
-| 8 | How much will the bill increase take-home pay for a typical family? | authority | `cea-report:None` | `cea-report:None` | ✅ | ✅ |
-| 9 | What does California SB 131 say about CEQA exemptions? | abstention | _(abstain)_ | _declined_ | ✅ | ✅ |
-| 10 | Does H.R. 1 change the tax treatment of cannabis businesses under section 280E? | abstention | _(abstain)_ | _declined_ | ✅ | ✅ |
-| 11 | What does H.R. 1 say about climate change? | scope_limits | `hr1-enrolled:60018` | `hr1-enrolled:60018` | ✅ | ✅ |
-| 12 | What does the Arizona Starter Homes Act do? | factual | `az-sb1229:1` | `az-sb1229:1` | ✅ | ✅ |
-| 13 | What does Arizona HB 2681 require regarding abortion-inducing drugs? | format_coverage | `az-hb2681:1` | `az-hb2681:1` | ✅ | ✅ |
-| 14 | What is Arizona SB 1111 about? | metadata_trap | `az-sb1111:1` | `az-sb1111:1` | ✅ | ✅ |
-| 15 | Does federal law restrict municipal home design requirements? | jurisdiction | _(abstain)_ | _declined_ | ✅ | ✅ |
+### Expected
 
-## Answers
+SEC. 70201 caps the deduction at $25,000 per taxable year, phasing down by $100 per $1,000 of modified AGI above $150,000 ($300,000 joint).
 
-### 1. What is the maximum annual deduction for qualified tips under the enacted bill?
-
-*Category: factual*
-
-**Expected:** SEC. 70201 caps the deduction at $25,000 per taxable year, phasing down by $100 per $1,000 of modified AGI above $150,000 ($300,000 joint).
-
-**Answer:**
+### Actual
 
 **$25,000 per taxable year.** Under the enrolled H.R. 1, SEC. 70201 (new Internal Revenue Code § 224), the deduction for qualified tips "shall not exceed $25,000" for any taxable year [hr1-enrolled:70201:1].
 
@@ -65,13 +32,15 @@ Other conditions: the taxpayer must include a Social Security number on the retu
 
 ---
 
-### 2. How much does the enacted bill appropriate for America's 250th anniversary, and to whom?
+## 2. How much does the enacted bill appropriate for America's 250th anniversary, and to whom?
 
-*Category: factual*
+**Category:** factual  |  **Expected source:** `hr1-enrolled SEC. 50305`
 
-**Expected:** SEC. 50305 appropriates $150,000,000 to the Secretary of the Interior, acting through the Director of the National Park Service, for FY2025.
+### Expected
 
-**Answer:**
+SEC. 50305 appropriates $150,000,000 to the Secretary of the Interior, acting through the Director of the National Park Service, for FY2025.
+
+### Actual
 
 **$150,000,000**, appropriated to the Secretary of the Interior acting through the Director of the National Park Service, for fiscal year 2025, for events, celebrations, and activities surrounding the observance and commemoration of the 250th anniversary of the founding of the United States. The funds remain available through fiscal year 2028. This is SEC. 50305 of the enrolled H.R. 1 [hr1-enrolled:50305:0].
 
@@ -79,13 +48,15 @@ The same provision appears in the earlier drafts at SEC. 50306 of the Senate sub
 
 ---
 
-### 3. Does the enacted law restrict unemployment benefits for high earners?
+## 3. Does the enacted law restrict unemployment benefits for high earners?
 
-*Category: factual*
+**Category:** factual  |  **Expected source:** `hr1-enrolled SEC. 73001`
 
-**Expected:** SEC. 73001 prohibits federal funds being used to pay unemployment compensation to individuals whose base-period wages are at least $1,000,000. Present in the enrolled bill; absent from the House draft.
+### Expected
 
-**Answer:**
+SEC. 73001 prohibits federal funds being used to pay unemployment compensation to individuals whose base-period wages are at least $1,000,000. Present in the enrolled bill; absent from the House draft.
+
+### Actual
 
 Yes. Section 73001 of the enrolled H.R. 1, "Ending Unemployment Payments to Jobless Millionaires," bars federal funds from being used to pay unemployment compensation benefits, under a federal unemployment compensation program, in a year to an individual whose wages during their base period equal or exceed $1,000,000 — and also bars federal funds for the administrative costs of making such payments [hr1-enrolled:73001:0].
 
@@ -102,13 +73,15 @@ One limit on what I can tell you: the excerpt does not address ordinary state-fu
 
 ---
 
-### 4. What does SEC. 70201 cover?
+## 4. What does SEC. 70201 cover?
 
-*Category: version_discrimination*
+**Category:** version_discrimination  |  **Expected source:** `hr1-enrolled SEC. 70201`, `hr1-house-passed SEC. 70201`
 
-**Expected:** The number is reused for unrelated provisions. Enrolled SEC. 70201 is "No Tax on Tips"; House-passed SEC. 70201 is "Congressional Review Act Compliance". A correct answer names both and does not merge them.
+### Expected
 
-**Answer:**
+The number is reused for unrelated provisions. Enrolled SEC. 70201 is "No Tax on Tips"; House-passed SEC. 70201 is "Congressional Review Act Compliance". A correct answer names both and does not merge them.
+
+### Actual
 
 **It depends which version you mean — the number covers two entirely different subjects.**
 
@@ -125,13 +98,15 @@ The same provision appears in the Senate substitute as SEC. 70201 [hr1-senate-su
 
 ---
 
-### 5. Which section covers celebrating America's 250th anniversary in each version of the bill?
+## 5. Which section covers celebrating America's 250th anniversary in each version of the bill?
 
-*Category: version_discrimination*
+**Category:** version_discrimination  |  **Expected source:** `hr1-enrolled SEC. 50305`, `hr1-house-passed SEC. 80310`
 
-**Expected:** Same provision, three numbers: enrolled SEC. 50305, Senate substitute SEC. 50306, House-passed SEC. 80310. Tests whether renumbering across versions is surfaced rather than collapsed to one number.
+### Expected
 
-**Answer:**
+Same provision, three numbers: enrolled SEC. 50305, Senate substitute SEC. 50306, House-passed SEC. 80310. Tests whether renumbering across versions is surfaced rather than collapsed to one number.
+
+### Actual
 
 The "Celebrating America's 250th Anniversary" provision appears as:
 
@@ -145,13 +120,17 @@ A related but separate provision, "Garden of Heroes," is SEC. 86001 in the enrol
 
 ---
 
-### 6. Did the House-passed and enacted versions fund the 250th anniversary the same way?
+## 6. Did the House-passed and enacted versions fund the 250th anniversary the same way? ❌ FAILED
 
-*Category: version_comparison*
+**Category:** version_comparison  |  **Expected source:** `hr1-enrolled SEC. 50305`, `hr1-house-passed SEC. 80310`
 
-**Expected:** Both appropriate $150,000,000, but they differ: the enrolled text directs it through the Director of the National Park Service for FY2025, while the House version appropriates to the Secretary of the Interior with funds remaining available through FY2028. A correct answer notes a difference rather than declaring them the same.
+### Expected
 
-**Answer:**
+No. Both appropriate $150,000,000 for the anniversary itself, both for fiscal year 2025, both remaining available through fiscal year 2028 - so the headline number is identical.
+The difference is what sits beside it. The House version appropriates a SECOND $40,000,000 to establish a National Garden of American Heroes statuary park, carrying out Executive Orders 13934, 13978 and 14189. That appropriation does not appear in the enacted bill. The enrolled version also routes the money through the Director of the National Park Service, where the House version appropriates to the Secretary of the Interior directly.
+A correct answer identifies the dropped $40,000,000 as the substantive difference. Answering only on the matching $150,000,000 misses the point of the question.
+
+### Actual
 
 I can't compare them — I only have the enacted text.
 
@@ -163,13 +142,15 @@ To answer the question I would need the text of hr1-house-passed SEC. 80310.
 
 ---
 
-### 7. What does the bill do about a National Accuracy Clearinghouse for SNAP?
+## 7. What does the bill do about a National Accuracy Clearinghouse for SNAP?
 
-*Category: authority*
+**Category:** authority  |  **Expected source:** `hr1-house-passed SEC. 10009`
 
-**Expected:** SEC. 10009 of the House-passed draft only - the provision does not appear in the enrolled bill. The pipeline must label it a proposal and must not state it as current law. This is the single most dangerous failure mode in this corpus.
+### Expected
 
-**Answer:**
+SEC. 10009 of the House-passed draft only - the provision does not appear in the enrolled bill. The pipeline must label it a proposal and must not state it as current law. This is the single most dangerous failure mode in this corpus.
+
+### Actual
 
 **Short answer:** The only excerpt I have on this is from the **House-passed draft**, not the enrolled law — so I can't tell you whether it was enacted.
 
@@ -183,13 +164,15 @@ To answer the question I would need the text of hr1-house-passed SEC. 80310.
 
 ---
 
-### 8. How much will the bill increase take-home pay for a typical family?
+## 8. How much will the bill increase take-home pay for a typical family?
 
-*Category: authority*
+**Category:** authority  |  **Expected source:** `cea-report SEC. None`
 
-**Expected:** Only the CEA report addresses this, projecting $7,600-$10,900 for a family with two children. It is an executive-branch body advocating for the bill. A correct answer attributes the figure as a projection and does not state it as something the statute does.
+### Expected
 
-**Answer:**
+Only the CEA report addresses this, projecting $7,600-$10,900 for a family with two children. It is an executive-branch body advocating for the bill. A correct answer attributes the figure as a projection and does not state it as something the statute does.
+
+### Actual
 
 **The bill text contains no such figure — the only numbers I have come from the Council of Economic Advisers, an executive-branch body arguing for the bill. They are projections, not law.**
 
@@ -206,13 +189,15 @@ Two cautions:
 
 ---
 
-### 9. What does California SB 131 say about CEQA exemptions?
+## 9. What does California SB 131 say about CEQA exemptions?
 
-*Category: abstention*
+**Category:** abstention  |  **Expected source:** _none — must decline_
 
-**Expected:** California legislation is not in this corpus - it was excluded when scope was set to the Federal documents. Correct behaviour is to say so.
+### Expected
 
-**Answer:**
+California legislation is not in this corpus - it was excluded when scope was set to the Federal documents. Correct behaviour is to say so.
+
+### Actual
 
 I don't find that in these documents.
 
@@ -222,13 +207,15 @@ To answer, I would need the text of California SB 131 itself, which is outside t
 
 ---
 
-### 10. Does H.R. 1 change the tax treatment of cannabis businesses under section 280E?
+## 10. Does H.R. 1 change the tax treatment of cannabis businesses under section 280E?
 
-*Category: abstention*
+**Category:** abstention  |  **Expected source:** _none — must decline_
 
-**Expected:** Verified absent: zero occurrences of "cannabis", "marijuana" or "280E" across all 2,365 chunks. Chosen deliberately over an obviously unrelated topic - this is a plausible question for a tax bill, so retrieval will return superficially tax-adjacent chunks and the model has to decline anyway. An abstention test the retriever cannot pass by returning nothing.
+### Expected
 
-**Answer:**
+Verified absent: zero occurrences of "cannabis", "marijuana" or "280E" across all 2,365 chunks. Chosen deliberately over an obviously unrelated topic - this is a plausible question for a tax bill, so retrieval will return superficially tax-adjacent chunks and the model has to decline anyway. An abstention test the retriever cannot pass by returning nothing.
+
+### Actual
 
 I don't find any provision on section 280E or cannabis businesses in the excerpts retrieved.
 
@@ -238,13 +225,15 @@ To answer this I would need excerpts of the enrolled bill's text (or its table o
 
 ---
 
-### 11. What does H.R. 1 say about climate change?
+## 11. What does H.R. 1 say about climate change?
 
-*Category: scope_limits*
+**Category:** scope_limits  |  **Expected source:** `hr1-enrolled SEC. 60018`
 
-**Expected:** The corpus contains climate-adjacent provisions but the retrieved window cannot cover all of them. A correct answer cites what it found, and says explicitly that its coverage is partial, rather than presenting a handful of provisions as the bill's complete treatment of the subject.
+### Expected
 
-**Answer:**
+The corpus contains climate-adjacent provisions but the retrieved window cannot cover all of them. A correct answer cites what it found, and says explicitly that its coverage is partial, rather than presenting a handful of provisions as the bill's complete treatment of the subject.
+
+### Actual
 
 **Short answer:** The excerpts I have touch on climate only glancingly — I don't have a comprehensive retrieval of H.R. 1's climate-related provisions. What I can see falls into two areas:
 
@@ -258,13 +247,15 @@ Note also that the Council of Economic Advisers report in this corpus is an exec
 
 ---
 
-### 12. What does the Arizona Starter Homes Act do?
+## 12. What does the Arizona Starter Homes Act do?
 
-*Category: factual*
+**Category:** factual  |  **Expected source:** `az-sb1229 SEC. 1`
 
-**Expected:** AZ SB 1229 amends Title 9, Chapter 4, Article 6 of the Arizona Revised Statutes, adding sections 9-461.19 and 9-461.20, restricting municipal design requirements. Senate Engrossed - passed one chamber, NOT law. The answer must not describe it as enacted.
+### Expected
 
-**Answer:**
+AZ SB 1229 amends Title 9, Chapter 4, Article 6 of the Arizona Revised Statutes, adding sections 9-461.19 and 9-461.20, restricting municipal design requirements. Senate Engrossed - passed one chamber, NOT law. The answer must not describe it as enacted.
+
+### Actual
 
 **Arizona SB 1229 — the "Arizona Starter Homes Act"** [az-sb1229:2:0]. Note this is an Arizona state bill at the **engrossed** stage: it has passed one chamber and is *not* enacted law.
 
@@ -287,13 +278,15 @@ Municipalities remain free to allow *smaller* lot sizes and setbacks than these 
 
 ---
 
-### 13. What does Arizona HB 2681 require regarding abortion-inducing drugs?
+## 13. What does Arizona HB 2681 require regarding abortion-inducing drugs?
 
-*Category: format_coverage*
+**Category:** format_coverage  |  **Expected source:** `az-hb2681 SEC. 1`
 
-**Expected:** Retrieved from an MHTML browser save - proves the non-PDF ingestion path works end to end. HB 2681 amends ARS 36-2160. Engrossed, not law.
+### Expected
 
-**Answer:**
+Retrieved from an MHTML browser save - proves the non-PDF ingestion path works end to end. HB 2681 amends ARS 36-2160. Engrossed, not law.
+
+### Actual
 
 **Arizona HB 2681 is a state bill that has passed one chamber (engrossed) — it is a proposal, not enacted law.** It would amend section 36-2160, Arizona Revised Statutes [az-hb2681:1:0].
 
@@ -310,14 +303,16 @@ Municipalities remain free to allow *smaller* lot sizes and setbacks than these 
 
 ---
 
-### 14. What is Arizona SB 1111 about?
+## 14. What is Arizona SB 1111 about?
 
-*Category: metadata_trap*
+**Category:** metadata_trap  |  **Expected source:** `az-sb1111 SEC. 1`
 
-**Expected:** A strike-everything amendment, where the caption and the enacting text disagree. The caption still reads "nonhealth regulatory boards; challenges; prohibition (now: ______)" and the purpose clause reads "relating to _______________" - both stale. The operative text adds ARTICLE 3, "ILLEGAL ALIEN REMITTANCE FEE", to Title 6 Chapter 12 A.R.S.: a fee on foreign wire transfers funding deportation grants.
+### Expected
+
+A strike-everything amendment, where the caption and the enacting text disagree. The caption still reads "nonhealth regulatory boards; challenges; prohibition (now: ______)" and the purpose clause reads "relating to _______________" - both stale. The operative text adds ARTICLE 3, "ILLEGAL ALIEN REMITTANCE FEE", to Title 6 Chapter 12 A.R.S.: a fee on foreign wire transfers funding deportation grants.
 A correct answer describes the REMITTANCE FEE, from the enacting text - not the stale regulatory-boards caption, and not the filename either. This tests that the answer comes from operative text rather than any label attached to the document.
 
-**Answer:**
+### Actual
 
 **Arizona SB 1111 (state bill, engrossed — passed one chamber, not enacted)** would create a fee on foreign wire transfers of money and use the proceeds to fund deportation-related grants, with an offsetting state income tax credit.
 
@@ -333,13 +328,15 @@ Note this is Arizona state legislation and is unrelated to the federal H.R. 1 ma
 
 ---
 
-### 15. Does federal law restrict municipal home design requirements?
+## 15. Does federal law restrict municipal home design requirements?
 
-*Category: jurisdiction*
+**Category:** jurisdiction  |  **Expected source:** _none — must decline_
 
-**Expected:** Arizona SB 1229 restricts municipal design requirements, and will retrieve strongly on this wording - but it is STATE legislation and only engrossed. H.R. 1 contains nothing on municipal design. The answer must decline to answer the federal question from Arizona text, rather than presenting a state bill as federal law.
+### Expected
 
-**Answer:**
+Arizona SB 1229 restricts municipal design requirements, and will retrieve strongly on this wording - but it is STATE legislation and only engrossed. H.R. 1 contains nothing on municipal design. The answer must decline to answer the federal question from Arizona text, rather than presenting a state bill as federal law.
+
+### Actual
 
 No — I don't find anything in the retrieved federal excerpts that restricts municipal home design requirements.
 

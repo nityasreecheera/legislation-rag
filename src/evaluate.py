@@ -72,16 +72,32 @@ def load_eval_set(path: Path = EVAL_SET) -> list[dict]:
 def score_one(case: dict, answer) -> dict:
     """Score a single answer against its expectations."""
     cited = set(answer.cited_ids)
+
+    # Only chunks whose TEXT was in the context count as retrieved.
+    #
+    # Variants are citable, and the model rightly cites them when saying where a
+    # provision also appears - but it is shown their location, not their text.
+    # Counting those citations as retrieval was wrong, and it hid a real failure:
+    # asked to compare how two versions funded the same provision, the pipeline
+    # answered "I only have the enacted text ... only their location was
+    # retrieved, not their text" - correctly - and this scorer marked it a pass
+    # at 100% citation recall, because the variant id appeared in the answer.
+    #
+    # A variant citation proves the provision exists elsewhere. It does not
+    # prove the model could read it, so it cannot satisfy an expected source.
     cited_pairs = {
         (result.metadata["doc_id"], result.metadata.get("section") or None)
         for result in answer.results
         if result.chunk_id in cited
     }
-    # Variants are citable too, so include any that were cited.
-    for result in answer.results:
-        for variant in result.variants:
-            if variant.get("chunk_id") in cited:
-                cited_pairs.add((variant["doc_id"], variant.get("section")))
+    cited_variants_only = sorted(
+        {
+            variant["chunk_id"]
+            for result in answer.results
+            for variant in result.variants
+            if variant.get("chunk_id") in cited
+        }
+    )
 
     expected = [
         (item["doc_id"], item.get("section")) for item in case.get("expect_sections", [])
@@ -122,6 +138,7 @@ def score_one(case: dict, answer) -> dict:
         "cited_nothing": answer.abstained,
         "expected_sections": [f"{d}:{s}" for d, s in expected],
         "matched_sections": [f"{d}:{s}" for d, s in matched],
+        "cited_location_only": cited_variants_only,
         "citation_recall": (len(matched) / len(expected)) if expected else None,
         "missing_phrases": missing_phrases,
         "forbidden_present": present_forbidden,

@@ -332,10 +332,27 @@ attributing advocacy, one checks the non-PDF ingestion path end to end, one
 checks that a strike-everything amendment is read from its enacting text rather
 than its stale caption, and only four are plain lookups.
 
-**Result: 15/15 passed, 15/15 grounded, 100% citation recall.**
+**Result: 14/15 passed, 15/15 grounded.**
 
-**That number should be read sceptically, and here is why.** Both questions that
-initially failed turned out to be bugs in my *evaluation*, not the pipeline:
+**The one failure is the most useful result in the set.**
+`anniversary-version-diff` asks whether the House and enacted versions funded the
+250th anniversary the same way. The answer was *"I can't compare them - I only
+have the enacted text ... only their location was retrieved, not their text."*
+Honest, and a failure.
+
+It scored as a **pass** until I looked at the text. Version grouping hands the
+model a citable id for each variant but not its content, and the scorer treated
+citing that id as evidence the section had been retrieved. So a capability that
+does not work reported 100% recall.
+
+The consequence is larger than one question: **the entire `version_comparison`
+category is currently unanswerable.** Comparing two versions requires both texts
+in context, and grouping deliberately supplies only one. The fix is to fetch
+variant text for the top few grouped results, at the cost of tripling their
+tokens. Not built - flagged rather than papered over.
+
+Two further questions initially failed for reasons that were bugs in my
+*evaluation* rather than the pipeline:
 
 1. I wrote an abstention question about climate change, reasoning that the
    phrase "climate change" has zero matches in the corpus. The pipeline
@@ -351,9 +368,10 @@ initially failed turned out to be bugs in my *evaluation*, not the pipeline:
    useful than a bare refusal, and my metric was calling it a failure.
    Abstention is now judged on whether the answer declines in words.
 
-So the measurement was adjusted twice after seeing behaviour. That is a mild
-form of overfitting, and 11/11 partly reflects a set that learned what the
-system does. It is a floor on obvious failure, not a quality score.
+So the measurement was adjusted three times after seeing behaviour - twice
+because it was too strict, once because it was too lenient and hid a real
+failure. That is a mild form of overfitting, and the score partly reflects a set
+that learned what the system does. It is a floor on obvious failure, not a quality score.
 
 Other limits: 15 questions is small; phrase matching is crude and catches
 blatant framing errors, not subtle ones; and the person who wrote the questions
