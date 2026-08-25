@@ -1,0 +1,10 @@
+anthropic==1.0.0
+chromadb==1.5.9
+pillow==12.3.0
+pymupdf==1.28.2
+pytesseract==0.3.13
+pytest==9.1.1
+python-dotenv==1.2.3
+PyYAML==6.0.3
+rank-bm25==0.2.2
+sentence-transformers==6.0.0

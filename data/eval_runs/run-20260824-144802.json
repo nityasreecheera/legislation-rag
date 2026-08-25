@@ -1,0 +1,255 @@
+[
+  {
+    "question": "Does H.R. 1 eliminate federal income tax on tips?",
+    "answer": "**No \u2014 not entirely.** Despite the heading \"NO TAX ON TIPS,\" the enacted provision (H.R. 1 enrolled, SEC. 70201) creates a *deduction* for qualified tips, not a full exemption [hr1-enrolled:70201:0].\n\nKey limits in the enrolled text:\n\n- **Capped at $25,000** per taxable year [hr1-enrolled:70201:0].\n- **Income phase-out:** the deduction is reduced by $100 for each $1,000 by which modified AGI exceeds $150,000 ($300,000 on a joint return), where modified AGI adds back amounts excluded under sections 911, 931 or 933 [hr1-enrolled:70201:0].\n- **Only reported tips count:** the tips must appear on statements furnished under sections 6041(d)(3), 6041A(e)(3), 6050W(f)(2) or 6051(a)(18), or be reported by the taxpayer on Form 4137 [hr1-enrolled:70201:0].\n- **Self-employed/business tips** are counted only to the extent the gross income of that trade or business exceeds the deductions allocable to it [hr1-enrolled:70201:0].\n\nSo tips above the cap, tips of higher earners, and unreported tips remain taxable. Note also that a separate provision, SEC. 70111, generally limits the tax benefit of *itemized* deductions [hr1-enrolled:70111:0] \u2014 but I don't have the portion of SEC. 70201 dealing with non-itemizers or a termination date for the tips deduction, so I can't tell you from these excerpts whether the tips deduction expires. (The parallel overtime provision, SEC. 70202, terminates after December 31, 2028 [hr1-enrolled:70202:1].)\n\nThe same provision appears in draft form as SEC. 70201 of the Senate substitute [hr1-senate-substitute:70201:0] and SEC. 110101 of the House-passed bill [hr1-house-passed:110101:0]; their texts were not retrieved, so I can't say how they differed.\n\nFor context on effects: the Council of Economic Advisers \u2014 an executive-branch body advocating for the bill \u2014 projects that no tax on tips will raise average take-home pay for tipped workers by about $1,300 per year, based on a JCT revenue estimate for the Senate version [cea-report:p9:1]. That is a projection, not what the statute provides.",
+    "rendered": "**No \u2014 not entirely.** Despite the heading \"NO TAX ON TIPS,\" the enacted provision (H.R. 1 enrolled, SEC. 70201) creates a *deduction* for qualified tips, not a full exemption [hr1-enrolled Title VII SEC. 70201, p. 99].\n\nKey limits in the enrolled text:\n\n- **Capped at $25,000** per taxable year [hr1-enrolled Title VII SEC. 70201, p. 99].\n- **Income phase-out:** the deduction is reduced by $100 for each $1,000 by which modified AGI exceeds $150,000 ($300,000 on a joint return), where modified AGI adds back amounts excluded under sections 911, 931 or 933 [hr1-enrolled Title VII SEC. 70201, p. 99].\n- **Only reported tips count:** the tips must appear on statements furnished under sections 6041(d)(3), 6041A(e)(3), 6050W(f)(2) or 6051(a)(18), or be reported by the taxpayer on Form 4137 [hr1-enrolled Title VII SEC. 70201, p. 99].\n- **Self-employed/business tips** are counted only to the extent the gross income of that trade or business exceeds the deductions allocable to it [hr1-enrolled Title VII SEC. 70201, p. 99].\n\nSo tips above the cap, tips of higher earners, and unreported tips remain taxable. Note also that a separate provision, SEC. 70111, generally limits the tax benefit of *itemized* deductions [hr1-enrolled Title VII SEC. 70111, p. 93] \u2014 but I don't have the portion of SEC. 70201 dealing with non-itemizers or a termination date for the tips deduction, so I can't tell you from these excerpts whether the tips deduction expires. (The parallel overtime provision, SEC. 70202, terminates after December 31, 2028 [hr1-enrolled Title VII SEC. 70202, p. 103].)\n\nThe same provision appears in draft form as SEC. 70201 of the Senate substitute [hr1-senate-substitute Title VII SEC. 70201, p. 274] and SEC. 110101 of the House-passed bill [hr1-house-passed Title XI SEC. 110101, p. 750]; their texts were not retrieved, so I can't say how they differed.\n\nFor context on effects: the Council of Economic Advisers \u2014 an executive-branch body advocating for the bill \u2014 projects that no tax on tips will raise average take-home pay for tipped workers by about $1,300 per year, based on a JCT revenue estimate for the Senate version [cea-report, p. 9]. That is a projection, not what the statute provides.\n\nSources:\n  - [law] hr1-enrolled Title VII SEC. 70201 (p. 99)\n  - [law] hr1-enrolled Title VII SEC. 70111 (p. 93)\n  - [law] hr1-enrolled Title VII SEC. 70202 (p. 103)\n  - [proposal] hr1-senate-substitute Title VII SEC. 70201 (p. 274)\n  - [proposal] hr1-house-passed Title XI SEC. 110101 (p. 750)\n  - [advocacy] cea-report p. 9",
+    "cited_ids": [
+      "hr1-enrolled:70201:0",
+      "hr1-enrolled:70111:0",
+      "hr1-enrolled:70202:1",
+      "hr1-senate-substitute:70201:0",
+      "hr1-house-passed:110101:0",
+      "cea-report:p9:1"
+    ],
+    "unverified": [],
+    "grounded": true,
+    "abstained": false,
+    "retrieved": [
+      {
+        "chunk_id": "hr1-enrolled:70201:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70201 (p. 99)",
+        "score": 0.032
+      },
+      {
+        "chunk_id": "cea-report:p9:1",
+        "authority": "advocacy",
+        "citation": "cea-report p. 9",
+        "score": 0.0274
+      },
+      {
+        "chunk_id": "cea-report:p21:1",
+        "authority": "advocacy",
+        "citation": "cea-report p. 21",
+        "score": 0.02509
+      },
+      {
+        "chunk_id": "hr1-enrolled:70111:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70111 (p. 93)",
+        "score": 0.0189
+      },
+      {
+        "chunk_id": "hr1-enrolled:70415:3",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70415 (p. 151)",
+        "score": 0.01515
+      },
+      {
+        "chunk_id": "hr1-enrolled:70202:1",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70202 (p. 103)",
+        "score": 0.01282
+      },
+      {
+        "chunk_id": "hr1-enrolled:82001:10",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VIII SEC. 82001 (p. 272)",
+        "score": 0.0122
+      },
+      {
+        "chunk_id": "hr1-enrolled:83001:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VIII SEC. 83001 (p. 278)",
+        "score": 0.01205
+      }
+    ]
+  },
+  {
+    "question": "What does California SB 131 say about CEQA exemptions?",
+    "answer": "I don't find that in these documents. These excerpts cover H.R. 1 (the \"One Big Beautiful Bill Act\") \u2014 a federal bill \u2014 along with a Council of Economic Advisers report about it. Nothing here addresses California state legislation, SB 131, or CEQA.\n\nTo answer, I would need the text of California SB 131 itself, or an analysis of it \u2014 neither of which is in the material available to me.",
+    "rendered": "I don't find that in these documents. These excerpts cover H.R. 1 (the \"One Big Beautiful Bill Act\") \u2014 a federal bill \u2014 along with a Council of Economic Advisers report about it. Nothing here addresses California state legislation, SB 131, or CEQA.\n\nTo answer, I would need the text of California SB 131 itself, or an analysis of it \u2014 neither of which is in the material available to me.\n\n(no sources cited - treated as an abstention)",
+    "cited_ids": [],
+    "unverified": [],
+    "grounded": true,
+    "abstained": true,
+    "retrieved": [
+      {
+        "chunk_id": "cea-report:p21:0",
+        "authority": "advocacy",
+        "citation": "cea-report p. 21",
+        "score": 0.02463
+      },
+      {
+        "chunk_id": "hr1-enrolled:70421:5",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70421 (p. 155)",
+        "score": 0.01087
+      },
+      {
+        "chunk_id": "hr1-enrolled:71119:8",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 71119 (p. 240)",
+        "score": 0.02083
+      },
+      {
+        "chunk_id": "hr1-house-passed:110003:0",
+        "authority": "proposal",
+        "citation": "hr1-house-passed Title XI SEC. 110003 (p. 731)",
+        "score": 0.01639
+      },
+      {
+        "chunk_id": "cea-report:p17:2",
+        "authority": "advocacy",
+        "citation": "cea-report p. 17",
+        "score": 0.01613
+      },
+      {
+        "chunk_id": "hr1-house-passed:80315:2",
+        "authority": "proposal",
+        "citation": "hr1-house-passed Title VIII SEC. 80315 (p. 660)",
+        "score": 0.01562
+      },
+      {
+        "chunk_id": "hr1-house-passed:70118:0",
+        "authority": "proposal",
+        "citation": "hr1-house-passed Title VII SEC. 70118 (p. 544)",
+        "score": 0.01538
+      },
+      {
+        "chunk_id": "hr1-enrolled:71115:1",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 71115 (p. 231)",
+        "score": 0.01515
+      }
+    ]
+  },
+  {
+    "question": "What does SEC. 70201 cover?",
+    "answer": "**Depends which document you mean \u2014 the section number is used for two different things.**\n\n**Enrolled bill (law): SEC. 70201 \u2014 \"No Tax on Tips.\"** It creates a new section 224 of the Internal Revenue Code allowing a deduction equal to qualified tips received during the taxable year, as reported on statements furnished under sections 6041(d)(3), 6041A(e)(3), 6050W(f)(2), or 6051(a)(18), or reported by the taxpayer on Form 4137 [hr1-enrolled:70201:0]. Key limits:\n- Deduction capped at $25,000 per taxable year [hr1-enrolled:70201:0].\n- Phased down by $100 for each $1,000 of modified AGI above $150,000 ($300,000 on a joint return) [hr1-enrolled:70201:0].\n- For tips received in a trade or business other than as an employee, the tips count only to the extent gross income from that business exceeds allocable deductions [hr1-enrolled:70201:0].\n\nThe same provision appears in the Senate substitute as SEC. 70201 (a proposal, p. 274) [hr1-senate-substitute:70201:0]. In the House-passed bill, the \"no tax on tips\" provision carried a different number (SEC. 110101), and its text is not among these excerpts.\n\n**House-passed bill (proposal, not law): SEC. 70201 \u2014 \"Congressional Review Act Compliance.\"** That draft would have appropriated $10,000,000 to the OMB Director for FY2025, available through September 30, 2034, and directed the Administrator of OIRA to conduct de novo analysis of direct and reasonably foreseeable indirect compliance costs of rules submitted under 5 U.S.C. 801(a)(1)(A), use that analysis to determine whether a rule is a major rule, and publish the analysis and a budgetary-effects estimate before transmittal to Congress and the Comptroller General [hr1-house-passed:70201:0]. I have no excerpt showing whether that provision survived into the enrolled bill.",
+    "rendered": "**Depends which document you mean \u2014 the section number is used for two different things.**\n\n**Enrolled bill (law): SEC. 70201 \u2014 \"No Tax on Tips.\"** It creates a new section 224 of the Internal Revenue Code allowing a deduction equal to qualified tips received during the taxable year, as reported on statements furnished under sections 6041(d)(3), 6041A(e)(3), 6050W(f)(2), or 6051(a)(18), or reported by the taxpayer on Form 4137 [hr1-enrolled Title VII SEC. 70201, p. 99]. Key limits:\n- Deduction capped at $25,000 per taxable year [hr1-enrolled Title VII SEC. 70201, p. 99].\n- Phased down by $100 for each $1,000 of modified AGI above $150,000 ($300,000 on a joint return) [hr1-enrolled Title VII SEC. 70201, p. 99].\n- For tips received in a trade or business other than as an employee, the tips count only to the extent gross income from that business exceeds allocable deductions [hr1-enrolled Title VII SEC. 70201, p. 99].\n\nThe same provision appears in the Senate substitute as SEC. 70201 (a proposal, p. 274) [hr1-senate-substitute Title VII SEC. 70201, p. 274]. In the House-passed bill, the \"no tax on tips\" provision carried a different number (SEC. 110101), and its text is not among these excerpts.\n\n**House-passed bill (proposal, not law): SEC. 70201 \u2014 \"Congressional Review Act Compliance.\"** That draft would have appropriated $10,000,000 to the OMB Director for FY2025, available through September 30, 2034, and directed the Administrator of OIRA to conduct de novo analysis of direct and reasonably foreseeable indirect compliance costs of rules submitted under 5 U.S.C. 801(a)(1)(A), use that analysis to determine whether a rule is a major rule, and publish the analysis and a budgetary-effects estimate before transmittal to Congress and the Comptroller General [hr1-house-passed Title VII SEC. 70201, p. 559]. I have no excerpt showing whether that provision survived into the enrolled bill.\n\nSources:\n  - [law] hr1-enrolled Title VII SEC. 70201 (p. 99)\n  - [proposal] hr1-senate-substitute Title VII SEC. 70201 (p. 274)\n  - [proposal] hr1-house-passed Title VII SEC. 70201 (p. 559)",
+    "cited_ids": [
+      "hr1-enrolled:70201:0",
+      "hr1-senate-substitute:70201:0",
+      "hr1-house-passed:70201:0"
+    ],
+    "unverified": [],
+    "grounded": true,
+    "abstained": false,
+    "retrieved": [
+      {
+        "chunk_id": "hr1-house-passed:70201:0",
+        "authority": "proposal",
+        "citation": "hr1-house-passed Title VII SEC. 70201 (p. 559)",
+        "score": 0.02942
+      },
+      {
+        "chunk_id": "hr1-enrolled:70201:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70201 (p. 99)",
+        "score": 0.0254
+      },
+      {
+        "chunk_id": "hr1-house-passed:70111:0",
+        "authority": "proposal",
+        "citation": "hr1-house-passed Title VII SEC. 70111 (p. 538)",
+        "score": 0.01639
+      },
+      {
+        "chunk_id": "hr1-enrolled:70427:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70427 (p. 167)",
+        "score": 0.01639
+      },
+      {
+        "chunk_id": "hr1-enrolled:70432:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70432 (p. 172)",
+        "score": 0.01613
+      },
+      {
+        "chunk_id": "hr1-enrolled:70331:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70331 (p. 135)",
+        "score": 0.01333
+      },
+      {
+        "chunk_id": "hr1-enrolled:70202:2",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70202 (p. 104)",
+        "score": 0.01562
+      },
+      {
+        "chunk_id": "hr1-enrolled:70111:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70111 (p. 93)",
+        "score": 0.01538
+      }
+    ]
+  },
+  {
+    "question": "How does the bill affect wages?",
+    "answer": "**Short answer:** The excerpts contain no provision of the enacted law that sets or raises wages. The only wage-effect claims here are projections from the Council of Economic Advisers, an executive-branch body arguing for the bill \u2014 not law and not neutral analysis.\n\n**What the CEA projects (advocacy, not law):**\n- Permanent full expensing of equipment and R&D: wages rising about $1,106\u2013$2,291 by year 4, growing to about $1,254\u2013$2,464 after 10 years [cea-report:p8:0].\n- Temporary full expensing of factories: wages up about $510\u2013$883 in the first four years, with the effect fading after the provision expires (about $100\u2013$123 by year 10) [cea-report:p8:0].\n- Household tax relief: a \"typical boost to annual take-home pay\" of $2,340 from permanent household tax relief, and up to about $3,600\u2013$3,740 in year 4 from all household tax relief combined, for a median-income household with two children [cea-report:p10:0]. Note that take-home pay is not the same thing as wages \u2014 this figure reflects tax reduction, not employer pay.\n\nThese are modelled projections tied to a 10-year budget window and should be read as the administration's case for its own bill.\n\n**Where the enacted text touches \"wages\" (technical, not wage-setting):**\n- SEC. 70304 of the enrolled bill amends the paid family and medical leave credit, including striking \"credit allowed\" and inserting \"wages taken into account\" in section 45S(b)(1), and letting employers elect a credit based either on wages paid to employees on leave or on insurance premiums paid [hr1-enrolled:70304:0].\n- SEC. 70605 of the enrolled bill defines \"improperly claimed ERTC wages\" and extends the period for credit or refund of deductions attributable to them [hr1-enrolled:70605:3].\n- SEC. 70201 (no tax on tips) adds reporting requirements for amounts reasonably designated as cash tips [hr1-enrolled:70201:4].\n\n**What I'd need to say more:** the enrolled text of the expensing and rate/deduction provisions the CEA is modelling, and any independent (e.g., CBO/JCT) analysis \u2014 none of which is in these excerpts.",
+    "rendered": "**Short answer:** The excerpts contain no provision of the enacted law that sets or raises wages. The only wage-effect claims here are projections from the Council of Economic Advisers, an executive-branch body arguing for the bill \u2014 not law and not neutral analysis.\n\n**What the CEA projects (advocacy, not law):**\n- Permanent full expensing of equipment and R&D: wages rising about $1,106\u2013$2,291 by year 4, growing to about $1,254\u2013$2,464 after 10 years [cea-report, p. 8].\n- Temporary full expensing of factories: wages up about $510\u2013$883 in the first four years, with the effect fading after the provision expires (about $100\u2013$123 by year 10) [cea-report, p. 8].\n- Household tax relief: a \"typical boost to annual take-home pay\" of $2,340 from permanent household tax relief, and up to about $3,600\u2013$3,740 in year 4 from all household tax relief combined, for a median-income household with two children [cea-report, p. 10]. Note that take-home pay is not the same thing as wages \u2014 this figure reflects tax reduction, not employer pay.\n\nThese are modelled projections tied to a 10-year budget window and should be read as the administration's case for its own bill.\n\n**Where the enacted text touches \"wages\" (technical, not wage-setting):**\n- SEC. 70304 of the enrolled bill amends the paid family and medical leave credit, including striking \"credit allowed\" and inserting \"wages taken into account\" in section 45S(b)(1), and letting employers elect a credit based either on wages paid to employees on leave or on insurance premiums paid [hr1-enrolled Title VII SEC. 70304, p. 124].\n- SEC. 70605 of the enrolled bill defines \"improperly claimed ERTC wages\" and extends the period for credit or refund of deductions attributable to them [hr1-enrolled Title VII SEC. 70605, p. 217].\n- SEC. 70201 (no tax on tips) adds reporting requirements for amounts reasonably designated as cash tips [hr1-enrolled Title VII SEC. 70201, p. 101].\n\n**What I'd need to say more:** the enrolled text of the expensing and rate/deduction provisions the CEA is modelling, and any independent (e.g., CBO/JCT) analysis \u2014 none of which is in these excerpts.\n\nSources:\n  - [advocacy] cea-report p. 8\n  - [advocacy] cea-report p. 10\n  - [law] hr1-enrolled Title VII SEC. 70304 (p. 124)\n  - [law] hr1-enrolled Title VII SEC. 70605 (p. 217)\n  - [law] hr1-enrolled Title VII SEC. 70201 (p. 101)",
+    "cited_ids": [
+      "cea-report:p8:0",
+      "cea-report:p10:0",
+      "hr1-enrolled:70304:0",
+      "hr1-enrolled:70605:3",
+      "hr1-enrolled:70201:4"
+    ],
+    "unverified": [],
+    "grounded": true,
+    "abstained": false,
+    "retrieved": [
+      {
+        "chunk_id": "cea-report:p8:0",
+        "authority": "advocacy",
+        "citation": "cea-report p. 8",
+        "score": 0.02986
+      },
+      {
+        "chunk_id": "cea-report:p10:0",
+        "authority": "advocacy",
+        "citation": "cea-report p. 10",
+        "score": 0.02908
+      },
+      {
+        "chunk_id": "hr1-enrolled:70605:3",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70605 (p. 217)",
+        "score": 0.01333
+      },
+      {
+        "chunk_id": "hr1-enrolled:70304:0",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70304 (p. 124)",
+        "score": 0.0102
+      },
+      {
+        "chunk_id": "hr1-house-passed:70200:6",
+        "authority": "proposal",
+        "citation": "hr1-house-passed Title VII SEC. 70200 (p. 557)",
+        "score": 0.01587
+      },
+      {
+        "chunk_id": "hr1-house-passed:90003:1",
+        "authority": "proposal",
+        "citation": "hr1-house-passed Title IX SEC. 90003 (p. 692)",
+        "score": 0.01562
+      },
+      {
+        "chunk_id": "hr1-enrolled:71119:6",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 71119 (p. 239)",
+        "score": 0.01471
+      },
+      {
+        "chunk_id": "hr1-enrolled:70201:4",
+        "authority": "law",
+        "citation": "hr1-enrolled Title VII SEC. 70201 (p. 101)",
+        "score": 0.01235
+      }
+    ]
+  }
+]

@@ -1,0 +1,231 @@
+[
+  {
+    "id": "tips-cap",
+    "category": "factual",
+    "question": "What is the maximum annual deduction for qualified tips under the enacted bill?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:70201"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:70201"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**I don't find the dollar cap in the retrieved text.** The excerpt I have from SEC. 70201 of the enrolled bill picks up mid-section \u2014 it covers the limit tied to the trade or business's gross income, the definition of \"qualified tips,\" and the Social Security number requirement \u2014 but the subsection containing any maximum dollar amount was not among the excerpts [hr1-enrolled:70201:1].\n\nWhat I can say from the enacted text:\n\n- The deduction is limited to the extent the taxpayer's gross income from the trade or business (including the qualified tips) exceeds the deductions allocable to that trade or business [hr1-enrolled:70201:1].\n- Qualified tips must be cash tips (including charged tips and tips received under a tip-sharing arrangement) in an occupation that customarily and regularly received tips on or before December 31, 2024, must be voluntary and not negotiated, and must not arise in a specified service trade or business under section 199A(d)(2) [hr1-enrolled:70201:1].\n- No deduction is allowed unless the individual's Social Security number is on the return [hr1-enrolled:70201:1].\n\nFor contrast, the separate overtime deduction in SEC. 70202 of the enrolled bill *does* have an explicit cap: $12,500 ($25,000 for a joint return), phased down by $100 for each $1,000 of modified AGI over $150,000 ($300,000 joint) [hr1-enrolled:70202:0].\n\nTo answer your question I would need the earlier portion of SEC. 70201 of the enrolled bill (the subsection stating the deduction amount and any limitation). Note the same provision also appears as SEC. 70201 in the Senate substitute [hr1-senate-substitute:70201:1] and SEC. 110101 in the House-passed bill [hr1-house-passed:110101:0], but those are drafts, not law, and their text was not provided either."
+  },
+  {
+    "id": "anniversary-funding",
+    "category": "factual",
+    "question": "How much does the enacted bill appropriate for America's 250th anniversary, and to whom?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:50305"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:50305"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**$150,000,000 to the Secretary of the Interior, acting through the Director of the National Park Service.** [hr1-enrolled:50305:0]\n\nDetails from the enrolled bill (SEC. 50305, \"Celebrating America's 250th Anniversary\"):\n- Appropriated for fiscal year 2025, out of Treasury money not otherwise appropriated, in addition to amounts otherwise available [hr1-enrolled:50305:0]\n- For events, celebrations, and activities surrounding the observance and commemoration of the 250th anniversary of the founding of the United States [hr1-enrolled:50305:0]\n- Remains available through fiscal year 2028 [hr1-enrolled:50305:0]\n\nThe same provision appears as SEC. 50306 in the Senate substitute [hr1-senate-substitute:50306:0] and SEC. 80310 in the House-passed bill [hr1-house-passed:80310:0], but I don't have their text, so I can't say whether the amounts there differ.\n\nA separate enacted provision, SEC. 86001, appropriates $40,000,000 to the National Endowment for the Humanities for statues under executive orders including one \"relating to celebrating America's birthday,\" available through fiscal year 2028 [hr1-enrolled:86001:0]."
+  },
+  {
+    "id": "millionaire-unemployment",
+    "category": "factual",
+    "question": "Does the enacted law restrict unemployment benefits for high earners?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:73001"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:73001"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "Yes. SEC. 73001 of the enrolled bill (\"Ending Unemployment Payments to Jobless Millionaires\") prohibits the use of federal funds to pay unemployment compensation benefits, under an unemployment compensation program of the United States, to an individual whose wages during their base period equal or exceed $1,000,000, and also bars federal funds for the administrative costs of making such payments [hr1-enrolled:73001:0].\n\nMechanics in the enacted text:\n\n- **Self-certification:** applications must include a form or procedure for the applicant to certify that base-period wages do not equal or exceed $1,000,000 [hr1-enrolled:73001:0].\n- **Verification:** each State agency administering such a program must use available systems to verify wage eligibility by assessing claimant income \"to the degree possible\" [hr1-enrolled:73001:0].\n- **Recovery of overpayments:** State agencies must require repayment of amounts recipients were not entitled to [hr1-enrolled:73001:0].\n- **Effective date:** the prohibition applies to weeks of unemployment beginning on or after the date of enactment [hr1-enrolled:73001:0].\n\nScope note: the restriction applies to \"unemployment compensation program[s] of the United States,\" which the section defines by list \u2014 the excerpt shows items (1) unemployment compensation for Federal civilian employees and (2) for ex-servicemembers, but the list is cut off, so I can't tell you the full set of covered programs from what was retrieved [hr1-enrolled:73001:0]. I'd need the remainder of SEC. 73001(b) to confirm whether regular state UC is covered."
+  },
+  {
+    "id": "section-70201-ambiguity",
+    "category": "version_discrimination",
+    "question": "What does SEC. 70201 cover?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:70201",
+      "hr1-house-passed:70201"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:70201",
+      "hr1-house-passed:70201"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**It depends which document you mean \u2014 the section number 70201 is used for different provisions in different versions.**\n\n**Enrolled bill (law) \u2014 SEC. 70201: \"No Tax on Tips.\"** It creates a new section 224 of the Internal Revenue Code (redesignating the existing section 224 as 225), allowing a deduction equal to qualified tips received during the taxable year, as reported on statements furnished under sections 6041(d)(3), 6041A(e)(3), 6050W(f)(2), or 6051(a)(18), or reported by the taxpayer on Form 4137 [hr1-enrolled:70201:0]. Key limits:\n- The deduction may not exceed $25,000 per taxable year [hr1-enrolled:70201:0].\n- It phases down by $100 for each $1,000 by which modified adjusted gross income exceeds $150,000 ($300,000 on a joint return), with modified AGI defined as AGI increased by amounts excluded under sections 911, 931, or 933 [hr1-enrolled:70201:0].\n- For tips received in a trade or business other than as an employee, the tips count only to the extent gross income from that business exceeds the allocable deductions [hr1-enrolled:70201:0].\n\nThe same provision appears as SEC. 70201 in the Senate substitute (a proposal, p. 274) [hr1-senate-substitute:70201:0]. Related enrolled provisions cross-reference it \u2014 for example, the overtime provision amends section 6041 \"as amended by section 70201(e)(1)(A)\" [hr1-enrolled:70202:2].\n\n**House-passed draft (proposal) \u2014 SEC. 70201: \"Congressional Review Act Compliance.\"** That earlier draft would have appropriated $10,000,000 to the OMB Director for FY2025, available through September 30, 2034, and directed the Administrator of OIRA to conduct de novo analysis of the direct and reasonably foreseeable indirect compliance costs of rules submitted under 5 U.S.C. 801(a)(1)(A), use that analysis to determine whether a rule is a major rule, publish it to OIRA's regulatory review database, and publish budgetary-effect estimates before transmission to Congress and the Comptroller General [hr1-house-passed:70201:0]. This is a House draft provision, not enacted text \u2014 I don't have an excerpt showing whether it survived into the enrolled bill."
+  },
+  {
+    "id": "anniversary-renumbering",
+    "category": "version_discrimination",
+    "question": "Which section covers celebrating America's 250th anniversary in each version of the bill?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:50305",
+      "hr1-house-passed:80310"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:50305",
+      "hr1-house-passed:80310"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Celebrating America's 250th Anniversary** appears as:\n\n- **Enrolled bill (law):** Title V, **SEC. 50305** \u2014 appropriates $150,000,000 to the Secretary of the Interior, acting through the National Park Service, for fiscal year 2025, for events, celebrations, and activities commemorating the 250th anniversary of the founding of the United States, available through fiscal year 2028 [hr1-enrolled:50305:0].\n- **Senate substitute (proposal):** **SEC. 50306** [hr1-senate-substitute:50306:0].\n- **House-passed bill (proposal):** **SEC. 80310** [hr1-house-passed:80310:0].\n\nI only have the text of the enrolled version; the Senate and House drafts' wording of this provision wasn't included, so I can't say whether their amounts or terms differed."
+  },
+  {
+    "id": "anniversary-version-diff",
+    "category": "version_comparison",
+    "question": "Did the House-passed and enacted versions fund the 250th anniversary the same way?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:50305",
+      "hr1-house-passed:80310"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:50305",
+      "hr1-house-passed:80310"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**I can't compare them \u2014 only the enacted text was retrieved.**\n\nThe enrolled bill's SEC. 50305 (\"Celebrating America's 250th Anniversary\") appropriates $150,000,000 to the Secretary of the Interior, acting through the Director of the National Park Service, for fiscal year 2025, out of unappropriated Treasury money, for events, celebrations, and activities commemorating the 250th anniversary of the founding of the United States, remaining available through fiscal year 2028 [hr1-enrolled:50305:0].\n\nThe same provision does appear in the other versions \u2014 as SEC. 80310 in the House-passed bill (p. 650) [hr1-house-passed:80310:0] and as SEC. 50306 in the Senate substitute (p. 226) [hr1-senate-substitute:50306:0] \u2014 but I have only their locations, not their text. To answer whether the funding amount, recipient agency, fiscal year, or availability period differed, I would need the actual text of hr1-house-passed SEC. 80310."
+  },
+  {
+    "id": "house-only-provision",
+    "category": "authority",
+    "question": "What does the bill do about a National Accuracy Clearinghouse for SNAP?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-house-passed:10009"
+    ],
+    "matched_sections": [
+      "hr1-house-passed:10009"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Short answer:** I only have the House-passed draft on this. No enrolled (enacted) text on the National Accuracy Clearinghouse was retrieved, so I can't tell you whether this became law.\n\n**What the House version proposed:** SEC. 10009 of the House-passed bill would have amended section 11(x)(2) of the Food and Nutrition Act of 2008 (7 U.S.C. 2020(x)(2)) to add a new subparagraph (D) on \"data sharing to prevent other multiple issuances.\" Under it, a State agency would have to use each indication of a multiple issuance \u2014 or each indication that someone receiving SNAP benefits in one State has applied for SNAP in another State \u2014 to prevent multiple issuances of *other* Federal and State assistance program benefits that the State agency administers through the integrated eligibility system it uses for SNAP [hr1-house-passed:10009:0].\n\nSo the thrust of the draft provision was not to create the clearinghouse itself, but to extend the use of its multiple-issuance data beyond SNAP to other benefit programs run on the same State eligibility system [hr1-house-passed:10009:0].\n\n**What I'd need to answer fully:** the corresponding section of the enrolled bill (or confirmation that no such section exists in it), and the Senate substitute text if there is one. Note that the excerpts I do have contain no cross-reference listing an enrolled counterpart for this provision."
+  },
+  {
+    "id": "cea-take-home-pay",
+    "category": "authority",
+    "question": "How much will the bill increase take-home pay for a typical family?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "cea-report:None"
+    ],
+    "matched_sections": [
+      "cea-report:None"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Short answer: the bill itself doesn't say \u2014 the figures you may have seen come from the Council of Economic Advisers, an executive-branch body advocating for the bill, and they are projections, not statutory provisions.**\n\nWhat the CEA projects:\n\n- For all tax provisions combined, the CEA estimates annual take-home pay gains of **$7,592 to $10,902 in year 4** and **$5,503 to $9,070 in year 10**, measured for \"a median-income household with an overtime worker and two children\" [cea-report:p3:0]. Excluding the no-tax-on-overtime provision, the year-4 range drops to **$6,332 to $9,502** [cea-report:p3:0].\n- The CEA notes these totals exclude a claimed **$1,300 average benefit from no tax on tips** and **$490 to $670 per senior** from the enhanced senior deduction [cea-report:p3:0].\n- Separately, for the rate and child-credit provisions measured against TCJA expiration, the CEA claims a permanent boost of **about $2,340 for a typical family with two children** [cea-report:p9:0].\n\nImportant caveats:\n\n1. These are the administration's own modeled projections with wide ranges, contingent on assumed investment and GDP responses (e.g., the CEA's assumption that overtime workers increase hours by 4.7 percent) [cea-report:p9:0][cea-report:p3:0]. They are not neutral analysis and nothing in the enacted text guarantees them.\n2. The CEA report describes the House and Senate versions, not necessarily the enacted text \u2014 e.g., it discusses the House's $2,500-per-child credit for four years versus the Senate Finance version's permanent $2,200 [cea-report:p9:0]. The enrolled bill's child credit provision is SEC. 70104, which indexes a $2,200 amount for inflation after 2025 and caps the refundable portion at $1,400 [hr1-enrolled:70104:1].\n\nTo say anything firmer about what a given family actually receives, I'd need the enrolled text of the rate, tips, overtime and senior-deduction provisions, which aren't among these excerpts."
+  },
+  {
+    "id": "out-of-corpus-state-law",
+    "category": "abstention",
+    "question": "What does California SB 131 say about CEQA exemptions?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": true,
+    "expected_sections": [],
+    "matched_sections": [],
+    "citation_recall": null,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "I don't find that in these documents.\n\nThese excerpts cover only H.R. 1 (the \"One Big Beautiful Bill Act\") \u2014 the enrolled federal bill, House and Senate drafts, and a Council of Economic Advisers report. California SB 131 is state legislation and is not addressed in any of them; nor is CEQA (the California Environmental Quality Act).\n\nTo answer, I would need the text of California SB 131 itself, or an analysis of it."
+  },
+  {
+    "id": "absent-topic",
+    "category": "abstention",
+    "question": "Does H.R. 1 change the tax treatment of cannabis businesses under section 280E?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [],
+    "matched_sections": [],
+    "citation_recall": null,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "I don't find anything about section 280E or cannabis businesses in these excerpts.\n\nThe only \"280\" provision here is **section 280C(a)**, amended by SEC. 70304 of the enrolled bill (extension and enhancement of the paid family and medical leave credit) as a \"no double benefit\" rule for premiums tied to the section 45S credit [hr1-enrolled:70304:2] \u2014 that is unrelated to 280E.\n\nTo answer your question I would need excerpts of any H.R. 1 section amending section 280E of the Internal Revenue Code, or a table-of-contents/section list for Title VII showing whether such a provision exists. Absence from the excerpts I have is not evidence that the bill is silent on the topic."
+  },
+  {
+    "id": "partial-coverage",
+    "category": "scope_limits",
+    "question": "What does H.R. 1 say about climate change?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:60018"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:60018"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Short answer: the excerpts I have touch on climate-related matters only in two narrow places, so I can't give you a full picture of how H.R. 1 treats climate change.**\n\nWhat the enacted text I do have says:\n\n1. **Rescission of climate/environmental data funding.** SEC. 60018 of the enrolled bill rescinds the unobligated balances of amounts made available to carry out section 60401 of Public Law 117\u2013169 (136 Stat. 2079), under the heading \"Rescission of Funding for Environmental and Climate Data Collection\" [hr1-enrolled:60018:0]. The same provision appears as SEC. 60018 of the Senate substitute draft [hr1-senate-substitute:60018:0].\n\n2. **Clean fuel production credit.** SEC. 70521 of the enrolled bill extends the section 45Z clean fuel production credit by striking \"December 31, 2027\" and inserting \"December 31, 2029,\" and modifies how emissions rates are determined \u2014 including directing the Secretary to make adjustments related to indirect land use change and to set distinct emissions rates for fuels derived from animal manure (dairy, swine, poultry, or other sources), which may be less than zero [hr1-enrolled:70521:1]. The modified emissions-rate rules apply to rates published for transportation fuel produced after December 31, 2025 [hr1-enrolled:70521:1]. Counterpart versions appear at SEC. 70521 of the Senate substitute [hr1-senate-substitute:70521:1] and SEC. 111112 of the House-passed bill [hr1-house-passed:111112:1]; I don't have their text, so I can't say whether they differ.\n\n**What's missing.** H.R. 1 is a large bill and these two excerpts almost certainly aren't the whole of its climate-related content. To answer properly I would need the rest of Title VI (energy and environment rescissions) and the Title VII clean-energy tax credit sections of the enrolled bill. The other excerpts I have \u2014 on crop insurance [hr1-enrolled:10503:2], Medicaid provider taxes [hr1-enrolled:71117:2], depreciation [hr1-enrolled:70307:4], and farm safety-net proposals [hr1-house-passed:10101:8] \u2014 are unrelated."
+  }
+]

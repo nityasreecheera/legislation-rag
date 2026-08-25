@@ -1,0 +1,76 @@
+# Document provenance manifest.
+#
+# Hand-written on purpose. There are four documents; inferring provenance with a
+# classifier would add a failure mode to save no work. Every field here is a fact
+# about the document's legal status that cannot be recovered from its text.
+#
+# `authority` is the field that matters most at answer time:
+#   law      - enacted; this is what the statute actually says today
+#   proposal - a draft stage; provisions here may never have become law
+#   advocacy - argument *about* the bill, not the bill itself
+#
+# Answers must never present `proposal` or `advocacy` content as `law`.
+
+documents:
+  BILLS-119hr1enr.pdf:
+    doc_id: hr1-enrolled
+    title: "H.R. 1 (119th Congress), Enrolled"
+    stage: enrolled
+    stage_order: 3
+    authority: law
+    doc_type: statute
+    chamber: both
+    committee_scheme: senate
+    date: 2025-07-04
+    note: >
+      Final enacted text. This is the ground-truth answer for any question about
+      what the law says. Organized by Senate committee jurisdiction.
+
+  Xthe_one_big_beautiful_bill_act.pdf:
+    doc_id: hr1-senate-substitute
+    title: "H.R. 1, Senate Substitute Amendment (S.L.C.)"
+    stage: senate_substitute
+    stage_order: 2
+    authority: proposal
+    doc_type: statute
+    chamber: senate
+    committee_scheme: senate
+    date: 2025-06
+    note: >
+      Substitute "in the nature of a substitute" - the Senate discarded the House
+      text and replaced it wholesale. Shares Title numbering with the enrolled
+      version, so differences are fine-grained rather than structural.
+
+  Xone_big_beautiful_bill_act_-_full_bill_text.pdf:
+    doc_id: hr1-house-passed
+    title: "H.R. 1, House Committee on the Budget reported text"
+    stage: house_passed
+    stage_order: 1
+    authority: proposal
+    doc_type: statute
+    chamber: house
+    committee_scheme: house
+    date: 2025-05
+    note: >
+      Organized by HOUSE committee jurisdiction, which is incompatible with the
+      enrolled version. The same Title number refers to different subject matter
+      across the two documents - see config/title_map.yaml. Roughly 43% of this
+      text did not survive into the enrolled bill.
+
+  XThe-One-Big-Beautiful-Bill-Legislation-for-Historic-Prosperity-and-Deficit-Reduction-1.pdf:
+    doc_id: cea-report
+    title: "CEA: The One Big Beautiful Bill - Legislation for Historic Prosperity and Deficit Reduction"
+    stage: null
+    stage_order: null
+    authority: advocacy
+    doc_type: analysis
+    chamber: null
+    committee_scheme: null
+    date: 2025-06
+    publisher: "Council of Economic Advisers (Executive Office of the President)"
+    note: >
+      NOT legislative text. An executive-branch body arguing for the bill, with
+      economic projections ("$7,600 to $10,900 higher annual take-home pay").
+      Image-only PDF - every page is a full-page PNG at 144 DPI with no text
+      layer, so it requires OCR. Charts carry data that OCR cannot recover;
+      figure regions are marked rather than silently dropped.

@@ -1,0 +1,159 @@
+# Evaluation set - 10 questions with expected citations.
+#
+# Every expected answer below was verified against the corpus by hand before
+# being written down, not recalled. Where a question turns on a version
+# difference, the section numbers were checked in all three bill versions.
+#
+# The set is deliberately weighted toward the failure modes this corpus invites
+# rather than toward simple lookups, because simple lookups are not where this
+# pipeline is likely to be wrong:
+#
+#   - four questions turn on distinguishing enacted law from a draft;
+#   - two require abstaining;
+#   - two require attributing advocacy as advocacy;
+#   - only two are plain factual retrieval.
+#
+# Scoring fields:
+#   expect_sections   sections that must be cited (citation recall)
+#   expect_abstain    answer must cite nothing and say so
+#   expect_phrases    substrings that must appear (key facts / correct framing)
+#   forbid_phrases    substrings that must not appear (known failure modes)
+
+questions:
+  - id: tips-cap
+    category: factual
+    question: "What is the maximum annual deduction for qualified tips under the enacted bill?"
+    expect_sections:
+      - {doc_id: hr1-enrolled, section: "70201"}
+    expect_phrases: ["25,000"]
+    ground_truth: >
+      SEC. 70201 caps the deduction at $25,000 per taxable year, phasing down by
+      $100 per $1,000 of modified AGI above $150,000 ($300,000 joint).
+
+  - id: anniversary-funding
+    category: factual
+    question: "How much does the enacted bill appropriate for America's 250th anniversary, and to whom?"
+    expect_sections:
+      - {doc_id: hr1-enrolled, section: "50305"}
+    expect_phrases: ["150,000,000", "Interior"]
+    ground_truth: >
+      SEC. 50305 appropriates $150,000,000 to the Secretary of the Interior,
+      acting through the Director of the National Park Service, for FY2025.
+
+  - id: millionaire-unemployment
+    category: factual
+    question: "Does the enacted law restrict unemployment benefits for high earners?"
+    expect_sections:
+      - {doc_id: hr1-enrolled, section: "73001"}
+    expect_phrases: ["unemployment"]
+    ground_truth: >
+      SEC. 73001 prohibits federal funds being used to pay unemployment
+      compensation to individuals whose base-period wages are at least
+      $1,000,000. Present in the enrolled bill; absent from the House draft.
+
+  - id: section-70201-ambiguity
+    category: version_discrimination
+    question: "What does SEC. 70201 cover?"
+    expect_sections:
+      - {doc_id: hr1-enrolled, section: "70201"}
+      - {doc_id: hr1-house-passed, section: "70201"}
+    expect_phrases: ["tips", "Congressional Review Act"]
+    ground_truth: >
+      The number is reused for unrelated provisions. Enrolled SEC. 70201 is "No
+      Tax on Tips"; House-passed SEC. 70201 is "Congressional Review Act
+      Compliance". A correct answer names both and does not merge them.
+
+  - id: anniversary-renumbering
+    category: version_discrimination
+    question: "Which section covers celebrating America's 250th anniversary in each version of the bill?"
+    expect_sections:
+      - {doc_id: hr1-enrolled, section: "50305"}
+      - {doc_id: hr1-house-passed, section: "80310"}
+    expect_phrases: ["50305", "80310"]
+    ground_truth: >
+      Same provision, three numbers: enrolled SEC. 50305, Senate substitute
+      SEC. 50306, House-passed SEC. 80310. Tests whether renumbering across
+      versions is surfaced rather than collapsed to one number.
+
+  - id: anniversary-version-diff
+    category: version_comparison
+    question: "Did the House-passed and enacted versions fund the 250th anniversary the same way?"
+    expect_sections:
+      - {doc_id: hr1-enrolled, section: "50305"}
+      - {doc_id: hr1-house-passed, section: "80310"}
+    forbid_phrases: ["identical"]
+    ground_truth: >
+      Both appropriate $150,000,000, but they differ: the enrolled text directs
+      it through the Director of the National Park Service for FY2025, while the
+      House version appropriates to the Secretary of the Interior with funds
+      remaining available through FY2028. A correct answer notes a difference
+      rather than declaring them the same.
+
+  - id: house-only-provision
+    category: authority
+    question: "What does the bill do about a National Accuracy Clearinghouse for SNAP?"
+    expect_sections:
+      - {doc_id: hr1-house-passed, section: "10009"}
+    expect_phrases: ["House"]
+    forbid_phrases: ["the law requires", "the enacted law provides"]
+    ground_truth: >
+      SEC. 10009 of the House-passed draft only - the provision does not appear
+      in the enrolled bill. The pipeline must label it a proposal and must not
+      state it as current law. This is the single most dangerous failure mode in
+      this corpus.
+
+  - id: cea-take-home-pay
+    category: authority
+    question: "How much will the bill increase take-home pay for a typical family?"
+    expect_sections:
+      - {doc_id: cea-report, section: null}
+    expect_phrases: ["project"]
+    forbid_phrases: ["the law provides", "the statute increases"]
+    ground_truth: >
+      Only the CEA report addresses this, projecting $7,600-$10,900 for a family
+      with two children. It is an executive-branch body advocating for the bill.
+      A correct answer attributes the figure as a projection and does not state
+      it as something the statute does.
+
+  - id: out-of-corpus-state-law
+    category: abstention
+    question: "What does California SB 131 say about CEQA exemptions?"
+    expect_abstain: true
+    ground_truth: >
+      California legislation is not in this corpus - it was excluded when scope
+      was set to the Federal documents. Correct behaviour is to say so.
+
+  - id: absent-topic
+    category: abstention
+    question: "Does H.R. 1 change the tax treatment of cannabis businesses under section 280E?"
+    expect_abstain: true
+    ground_truth: >
+      Verified absent: zero occurrences of "cannabis", "marijuana" or "280E"
+      across all 2,365 chunks. Chosen deliberately over an obviously unrelated
+      topic - this is a plausible question for a tax bill, so retrieval will
+      return superficially tax-adjacent chunks and the model has to decline
+      anyway. An abstention test the retriever cannot pass by returning nothing.
+
+  # This question replaced an earlier, badly-designed abstention case. The
+  # original asked about climate change and expected a refusal on the grounds
+  # that the phrase "climate change" never appears in the corpus. The pipeline
+  # "failed" it by answering - correctly. The bill does contain climate-related
+  # provisions (a rescission of Inflation Reduction Act climate-data funding at
+  # SEC. 60018, changes to the section 45Z clean fuel credit at SEC. 70521); it
+  # simply does not use that phrase. Absence of a phrase is not absence of a
+  # topic, and the eval was wrong, not the system.
+  #
+  # It is kept, reframed, because the behaviour it actually tests is worth
+  # testing: answering partially from what was retrieved while stating plainly
+  # what is missing, instead of either refusing or overclaiming.
+  - id: partial-coverage
+    category: scope_limits
+    question: "What does H.R. 1 say about climate change?"
+    expect_sections:
+      - {doc_id: hr1-enrolled, section: "60018"}
+    forbid_phrases: ["the bill does not address", "no provisions"]
+    ground_truth: >
+      The corpus contains climate-adjacent provisions but the retrieved window
+      cannot cover all of them. A correct answer cites what it found, and says
+      explicitly that its coverage is partial, rather than presenting a handful
+      of provisions as the bill's complete treatment of the subject.
