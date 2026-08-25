@@ -117,6 +117,51 @@ Questions and hand-verified expected citations are in
 80 tests. No API key needed — the LLM call is not tested, the logic around it
 is.
 
+## Architecture
+
+```
+  7 documents · PDF, HTML, MHTML · 2 jurisdictions
+                       │
+      ┌────────────────▼────────────────┐
+      │ 1. INGEST                       │   per page: text, or OCR if < 100 chars
+      │    ingest.py                    │   strip margin line numbers (by x-position)
+      └────────────────┬────────────────┘   MIME-decode MHTML
+                       │                     → one record per page
+      ┌────────────────▼────────────────┐
+      │ 2. CHUNK                        │   split on SEC. boundaries, never across
+      │    chunk.py                     │   window long sections (2000c / 300 overlap)
+      └────────────────┬────────────────┘   stamp authority · jurisdiction · section · page
+                       │                     → 2,383 chunks
+      ┌────────────────▼────────────────┐
+      │ 3. INDEX                        │   Chroma   768-d vectors   (meaning)
+      │    index.py                     │   BM25     term counts     (exact strings)
+      └────────────────┬────────────────┘
+                       │
+      ┌────────────────▼────────────────┐
+      │ 4. RETRIEVE                     │   a. query both indexes
+      │    retrieve.py                  │   b. fuse by rank (RRF)
+      │                                 │   c. group versions of one provision
+      │                                 │   d. cap advocacy at 25% of slots
+      └────────────────┬────────────────┘   e. reassemble each section from its chunks
+                       │                     → 8 provisions
+      ┌────────────────▼────────────────┐
+      │ 5. ANSWER                       │   Claude Opus 5
+      │    answer.py                    │   prompt enforces law / proposal / advocacy
+      └────────────────┬────────────────┘
+                       │
+      ┌────────────────▼────────────────┐
+      │ 6. VERIFY                       │   every cited ID must be one that was retrieved
+      │    answer.py                    │   unresolvable ones flagged, not rendered
+      └────────────────┬────────────────┘
+                       ▼
+         cited answer, labelled by authority
+
+  Steps c, d and e exist only because this corpus holds the same bill
+  three times. Steps 1-2 and 3 are ordinary RAG.
+```
+
+Reasoning behind each choice is in [WRITEUP.md](WRITEUP.md).
+
 ## Layout
 
 ```
