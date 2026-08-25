@@ -1,7 +1,9 @@
 # Write-up
 
-**Time spent: roughly 4 hours**, including about an hour on scoping and reading
-the corpus before writing code. That hour was the most useful of the four.
+**Time spent: roughly 14 hours.** The first of those went on reading the corpus
+before writing any code, and it was the most useful hour of the fourteen — the
+version-collision problem that shaped every later decision was visible in the
+documents long before it showed up in a retrieval result.
 
 ---
 
