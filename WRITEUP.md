@@ -332,7 +332,18 @@ attributing advocacy, one checks the non-PDF ingestion path end to end, one
 checks that a strike-everything amendment is read from its enacting text rather
 than its stale caption, and only four are plain lookups.
 
-**Result: 14/15 passed, 15/15 grounded.**
+**Result: accuracy 14/15 (93%), grounded 15/15 (100%), citation recall 96%.**
+
+| Metric | Value | Definition |
+|---|---|---|
+| Accuracy | 14/15 (93%) | Every check passed for the question |
+| Grounded | 15/15 (100%) | No citation points at an unretrieved chunk |
+| Citation recall | 96% | Expected sources cited, over the 12 questions that have them |
+
+None of these measures whether a claim is *true* — only whether its citation
+resolves, whether the answer declined when it should have, and whether the
+required framing appeared. That gap is precisely what let question 6 pass while
+being useless.
 
 **The one failure is the most useful result in the set.**
 `anniversary-version-diff` asks whether the House and enacted versions funded the

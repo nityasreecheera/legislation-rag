@@ -1,6 +1,6 @@
 # Evaluation — questions, expected answers, actual answers
 
-**14/15 passed · 15/15 grounded (no invented citations)**
+**Accuracy 14/15 (93%) · Grounded 15/15 (100%) · Citation recall 96%**
 
 The one failure is `anniversary-version-diff` (Q6). It scored as a pass until
 the answer text was read — the scorer counted a cited *location* as a retrieved

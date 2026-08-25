@@ -4,7 +4,16 @@ Run: 2026-08-25  |  Model: claude-opus-5  |  k=8 chunks/question
 Corpus: 7 documents, 3 formats, 2 jurisdictions.
 Retrieval: hybrid BM25 + dense, RRF fusion, version grouping, section reassembly.
 
-**14/15 passed · 15/15 grounded (no hallucinated citations)**
+**Accuracy 14/15 (93%) · Grounded 15/15 (100%) · Citation recall 96%**
+
+| Metric | Value | Definition |
+|---|---|---|
+| Accuracy | 14/15 (93%) | Every check passed: grounded, correct abstention, expected sources cited, phrasing rules held |
+| Grounded | 15/15 (100%) | No citation points at a chunk that was not retrieved — the hallucinated-citation check |
+| Citation recall | 96% | Expected sources actually cited, averaged over the 12 questions that have expected sources |
+
+Recall is not 100% because Q6 cited one of its two expected sources: it retrieved
+the enrolled section and only the *location* of the House one.
 
 One genuine failure: `anniversary-version-diff` asks whether the House and
 enacted versions funded the 250th anniversary the same way. The pipeline

@@ -183,11 +183,21 @@ def main() -> None:
     passed = sum(r["passed"] for r in scored)
     grounded = sum(r["grounded"] for r in scored)
     recalls = [r["citation_recall"] for r in scored if r["citation_recall"] is not None]
+    total = len(scored)
     print("-" * 76)
-    print(f"passed        {passed}/{len(scored)}")
-    print(f"grounded      {grounded}/{len(scored)}  (no hallucinated citations)")
+    print(f"accuracy         {passed}/{total} = {passed / total:.0%}"
+          "   (every check passed)")
+    print(f"grounded         {grounded}/{total} = {grounded / total:.0%}"
+          "   (no citation points at an unretrieved chunk)")
     if recalls:
-        print(f"citation recall {sum(recalls) / len(recalls):.0%}  (mean over {len(recalls)})")
+        print(f"citation recall  {sum(recalls) / len(recalls):.0%}"
+              f"        (over {len(recalls)} questions with expected sources)")
+    location_only = [r for r in scored if r.get("cited_location_only")]
+    if location_only:
+        print()
+        print("cited by location only (variant shown, text not retrieved):")
+        for row in location_only:
+            print(f"  {row['id']}: {', '.join(row['cited_location_only'])}")
     print(f"\nresults -> eval/results/eval-{stamp}.json")
 
     for row in scored:
