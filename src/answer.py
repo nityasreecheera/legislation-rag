@@ -24,6 +24,7 @@ So answers must attribute by authority, not merely cite.
 
 from __future__ import annotations
 
+import os
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -199,8 +200,33 @@ def verify_citations(text: str, results: list[Result]) -> tuple[list[str], list[
     ]
 
 
+class MissingCredentials(RuntimeError):
+    """Raised at construction rather than at the first request.
+
+    Without this the SDK fails deep inside the call with "Could not resolve
+    authentication method", but only *after* the embedding model has loaded and
+    retrieval has run - so the first thing anyone without a key sees is a
+    traceback several seconds into what looked like a working system.
+    """
+
+
+CREDENTIAL_HELP = """\
+No Anthropic API key found.
+
+  1. Get a key:  https://console.anthropic.com/settings/keys
+  2. Save it:    cp .env.example .env   and paste the key into .env
+
+Retrieval works without a key - only answer generation needs one:
+
+  .venv/bin/python src/retrieve.py "your question"    # ranked chunks
+  .venv/bin/python src/diff.py --from house           # version comparison"""
+
+
 class Pipeline:
     def __init__(self, retriever: Retriever | None = None) -> None:
+        if not (os.environ.get("ANTHROPIC_API_KEY")
+                or os.environ.get("ANTHROPIC_AUTH_TOKEN")):
+            raise MissingCredentials(CREDENTIAL_HELP)
         self.retriever = retriever or Retriever()
         self.client = anthropic.Anthropic()
 
@@ -355,4 +381,10 @@ if __name__ == "__main__":
         print("usage: python answer.py <question>")
         raise SystemExit(1)
 
-    print(render(Pipeline().ask(question)))
+    try:
+        pipeline = Pipeline()
+    except MissingCredentials as exc:
+        print(exc, file=sys.stderr)
+        raise SystemExit(2) from None
+
+    print(render(pipeline.ask(question)))

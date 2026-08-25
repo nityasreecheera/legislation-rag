@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import sys
 
-from answer import HISTORY_TURNS, Pipeline, Turn, render
+from answer import HISTORY_TURNS, MissingCredentials, Pipeline, Turn, render
 
 BANNER = """\
 Legislation RAG - H.R. 1 corpus
@@ -152,7 +152,13 @@ class Shell:
 
 def main() -> None:
     try:
-        Shell().run()
+        shell = Shell()
+    except MissingCredentials as exc:
+        print(exc, file=sys.stderr)
+        raise SystemExit(2) from None
+
+    try:
+        shell.run()
     except Exception as exc:  # noqa: BLE001
         print(f"error: {exc}", file=sys.stderr)
         raise SystemExit(1) from exc

@@ -240,3 +240,40 @@ class TestEmptyInput:
         result = answer_module.Pipeline.ask(pipeline, question)
         assert result.results == []
         assert "provide a question" in result.text.lower()
+
+
+class TestMissingCredentials:
+    """A grader without a key must get guidance, not an SDK traceback.
+
+    Before this check the SDK failed with "Could not resolve authentication
+    method" - but only after the embedding model had loaded and retrieval had
+    run, so the first sign of trouble was a traceback several seconds into what
+    looked like a working system.
+    """
+
+    def test_pipeline_refuses_to_construct_without_a_key(self, monkeypatch):
+        import answer as answer_module
+
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+
+        with pytest.raises(answer_module.MissingCredentials) as caught:
+            answer_module.Pipeline()
+
+        message = str(caught.value)
+        assert "console.anthropic.com" in message
+        assert ".env" in message
+
+    def test_failure_is_before_any_expensive_work(self, monkeypatch):
+        """Must raise without constructing a Retriever - that loads a model."""
+        import answer as answer_module
+
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+
+        def explode():
+            raise AssertionError("Retriever must not be built without a key")
+
+        monkeypatch.setattr(answer_module, "Retriever", explode)
+        with pytest.raises(answer_module.MissingCredentials):
+            answer_module.Pipeline()

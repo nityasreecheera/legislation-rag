@@ -21,8 +21,14 @@ Then add an API key for the generation step:
 cp .env.example .env    # then edit .env and paste your key
 ```
 
-Get one at <https://console.anthropic.com/settings/keys>. Retrieval works
-without a key; only answer generation needs it.
+Get one at <https://console.anthropic.com/settings/keys>.
+
+**Retrieval works without a key** — only answer generation needs one:
+
+```bash
+.venv/bin/python src/retrieve.py "tips deduction cap"   # ranked chunks + scores
+.venv/bin/python src/diff.py --from house               # version comparison
+```
 
 ## Run
 
@@ -105,7 +111,7 @@ Questions and hand-verified expected citations are in
 .venv/bin/python -m pytest tests/ -q
 ```
 
-70 tests. No API key needed — the LLM call is not tested, the logic around it
+72 tests. No API key needed — the LLM call is not tested, the logic around it
 is.
 
 ## Layout
