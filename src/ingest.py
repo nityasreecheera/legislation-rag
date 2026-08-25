@@ -18,6 +18,8 @@ Output is one JSONL file per document in data/extracted/, one record per page.
 
 from __future__ import annotations
 
+import email
+import html
 import io
 import json
 import re
@@ -71,7 +73,7 @@ class Page:
     doc_id: str
     page: int
     text: str
-    extraction: str  # "text" | "ocr"
+    extraction: str  # "text" | "ocr" | "web"
     char_count: int
     has_figure: bool
     ocr_confidence: float | None = None
@@ -81,6 +83,58 @@ def load_manifest(path: Path | None = None) -> dict:
     path = path or REPO_ROOT / "config" / "manifest.yaml"
     with path.open() as fh:
         return yaml.safe_load(fh)["documents"]
+
+
+def _html_to_text(markup: str) -> str:
+    """Strip markup to readable text.
+
+    A parser library would be better, but these two documents are a Word export
+    and a browser "save page" - both mostly style boilerplate around a small
+    amount of prose - and the tag soup does not need a real DOM to survive.
+    """
+    markup = re.sub(r"(?is)<(script|style|head)\b.*?</\1>", " ", markup)
+    markup = re.sub(r"(?i)<br\s*/?>|</(p|div|tr|h[1-6])>", "\n", markup)
+    text = re.sub(r"(?s)<[^>]+>", " ", markup)
+    text = html.unescape(text)
+    # Collapse runs of spaces but keep paragraph structure for chunking.
+    text = re.sub(r"[ \t\xa0]+", " ", text)
+    return re.sub(r"\n\s*\n\s*\n+", "\n\n", text).strip()
+
+
+def extract_web_document(path: Path, doc_id: str) -> list[Page]:
+    """Extract an HTML or MHTML file.
+
+    Web documents have no pages, so the whole document becomes a single record.
+    That is not a loss: these are short bills whose citable unit is the section
+    ("SB 1229, Section 1"), which is a better anchor than a page number anyway.
+    MHTML is a MIME container - a browser's "save page" - so its HTML parts are
+    pulled out and decoded rather than read as raw bytes.
+    """
+    if path.suffix.lower() == ".mhtml":
+        message = email.message_from_bytes(path.read_bytes())
+        parts = [
+            part.get_payload(decode=True).decode(
+                part.get_content_charset() or "windows-1252", "replace"
+            )
+            for part in message.walk()
+            if part.get_content_type() == "text/html"
+        ]
+        text = _html_to_text("\n".join(parts))
+    else:
+        raw = path.read_bytes()
+        # Word's HTML export is windows-1252; a stray byte should not abort.
+        text = _html_to_text(raw.decode("utf-8", "replace"))
+
+    return [
+        Page(
+            doc_id=doc_id,
+            page=1,
+            text=text,
+            extraction="web",
+            char_count=len(text),
+            has_figure=False,
+        )
+    ]
 
 
 def _has_line_numbers(doc: pymupdf.Document) -> bool:
@@ -190,14 +244,20 @@ def main() -> None:
             continue
 
         print(f"{doc_id:24s} extracting ... ", end="", flush=True)
-        with pymupdf.open(pdf_path) as probe:
-            margin = _has_line_numbers(probe)
-        pages = extract_document(pdf_path, doc_id)
+        if pdf_path.suffix.lower() in {".html", ".htm", ".mhtml"}:
+            margin = False
+            pages = extract_web_document(pdf_path, doc_id)
+        else:
+            with pymupdf.open(pdf_path) as probe:
+                margin = _has_line_numbers(probe)
+            pages = extract_document(pdf_path, doc_id)
         write_pages(pages, out_dir, doc_id)
 
         ocr_pages = [p for p in pages if p.extraction == "ocr"]
         empty = [p for p in pages if p.char_count == 0]
         summary = f"{len(pages):>4} pages"
+        if pages and pages[0].extraction == "web":
+            summary = f"{len(pages):>4} doc    ({pages[0].char_count:,} chars, web)"
         if margin:
             summary += "  [margin line numbers stripped]"
         if ocr_pages:

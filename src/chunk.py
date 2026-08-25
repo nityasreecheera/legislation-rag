@@ -63,6 +63,21 @@ SECTION_HEADER = re.compile(
     re.MULTILINE,
 )
 
+# State bills number sections plainly - "Section 1." then "Sec. 2." - and are
+# short enough that the 5-6 digit constraint protecting the federal pattern from
+# cross-references would exclude every real header. Case-insensitive, because
+# Arizona mixes "Section" and "Sec." within one document.
+#
+# Which pattern applies is a manifest field (`section_style`), not a guess from
+# the text: a document knows its own conventions and the corpus is small enough
+# to say so explicitly.
+STATE_SECTION_HEADER = re.compile(
+    r"^[ \t]*(?:Section|Sec\.)\s+(\d{1,3})\.",
+    re.MULTILINE | re.IGNORECASE,
+)
+
+SECTION_PATTERNS = {"federal": SECTION_HEADER, "state": STATE_SECTION_HEADER}
+
 # Headings run long - the longest in this corpus is 104 characters - so the
 # window has to be generous, and the heading ends at its terminating period.
 HEADING_MAX_CHARS = 160
@@ -93,6 +108,11 @@ class Chunk:
     stage: str | None
     authority: str        # law | proposal | advocacy
     doc_type: str         # statute | analysis
+    jurisdiction: str     # federal | arizona
+    # Documents sharing a version_group are versions of the SAME bill, and only
+    # those may be collapsed together during retrieval. Null means the document
+    # stands alone.
+    version_group: str | None
     # location, for citations
     title: str | None     # roman numeral, e.g. "VII"
     section: str | None   # e.g. "70101"
@@ -179,7 +199,9 @@ def chunk_statute(doc_id: str, meta: dict) -> list[Chunk]:
     pages = _load_pages(doc_id)
     text, offsets, pages = _stitch(pages)
 
-    headers = list(SECTION_HEADER.finditer(text))
+    style = meta.get("section_style", "federal")
+    pattern = SECTION_PATTERNS[style]
+    headers = list(pattern.finditer(text))
     chunks: list[Chunk] = []
 
     # A section number is not unique within a document - the House draft carries
@@ -220,7 +242,9 @@ def chunk_statute(doc_id: str, meta: dict) -> list[Chunk]:
                     stage=meta.get("stage"),
                     authority=meta["authority"],
                     doc_type=meta["doc_type"],
-                    title=title_for_section(number),
+                    jurisdiction=meta.get("jurisdiction", "federal"),
+                    version_group=meta.get("version_group"),
+                    title=title_for_section(number) if style == "federal" else None,
                     section=number,
                     section_heading=heading,
                     page_start=start_page["page"],
@@ -249,6 +273,8 @@ def chunk_by_page(doc_id: str, meta: dict) -> list[Chunk]:
                     stage=meta.get("stage"),
                     authority=meta["authority"],
                     doc_type=meta["doc_type"],
+                    jurisdiction=meta.get("jurisdiction", "federal"),
+                    version_group=meta.get("version_group"),
                     title=None,
                     section=None,
                     section_heading=None,

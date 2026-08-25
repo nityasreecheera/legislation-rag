@@ -1,9 +1,11 @@
 # Legislation RAG
 
-Question answering over H.R. 1 (the "One Big Beautiful Bill Act"), across three
-legislative versions of the bill plus a Council of Economic Advisers report
-about it. Answers are cited to a specific document, section and page, and
-labelled by whether the source is enacted law, a draft proposal, or advocacy.
+Question answering over seven legislative documents in two jurisdictions: H.R. 1
+(the federal "One Big Beautiful Bill Act") in three versions, a Council of
+Economic Advisers report about it, and three Arizona state bills. Answers are
+cited to a specific document, section and page, and labelled by whether the
+source is enacted law, a draft proposal, or advocacy - and by which jurisdiction
+it belongs to.
 
 ## Install
 
@@ -13,7 +15,7 @@ labelled by whether the source is enacted law, a draft proposal, or advocacy.
 
 Creates a virtualenv, installs dependencies, installs Tesseract if missing, and
 builds the index from the PDFs in `data/raw/`. Takes about five minutes, most of
-it embedding 2,365 chunks.
+it embedding 2,383 chunks.
 
 Then add an API key for the generation step:
 
@@ -57,6 +59,7 @@ Sources:
 |---|---|
 | `:sources` | Chunks retrieved for the last answer, with scores; `*` marks the cited ones |
 | `:authority law\|proposal\|advocacy\|all` | Restrict retrieval by source type |
+| `:jurisdiction federal\|arizona\|all` | Restrict retrieval by jurisdiction |
 | `:k <n>` | Chunks retrieved per question (default 8) |
 | `:history` | Questions asked so far |
 | `:clear` | Forget the conversation |
@@ -97,7 +100,7 @@ rather than getting a confident label. See [WRITEUP.md](WRITEUP.md).
 ## Evaluation
 
 ```bash
-.venv/bin/python src/evaluate.py          # all 11 questions
+.venv/bin/python src/evaluate.py          # all 15 questions
 .venv/bin/python src/evaluate.py --only tips-cap
 ```
 
@@ -111,15 +114,15 @@ Questions and hand-verified expected citations are in
 .venv/bin/python -m pytest tests/ -q
 ```
 
-72 tests. No API key needed — the LLM call is not tested, the logic around it
+80 tests. No API key needed — the LLM call is not tested, the logic around it
 is.
 
 ## Layout
 
 ```
 config/manifest.yaml   Document provenance. Hand-written; `authority` drives everything.
-src/ingest.py          Per-page extraction, OCR fallback, margin-number removal
-src/chunk.py           Section-boundary chunking
+src/ingest.py          Per-page extraction, OCR fallback, HTML/MHTML, margin-number removal
+src/chunk.py           Section-boundary chunking (federal and state numbering)
 src/index.py           Chroma (dense) + BM25 (lexical)
 src/retrieve.py        RRF fusion, version grouping, section reassembly
 src/answer.py          Grounded generation + citation verification
@@ -144,14 +147,22 @@ stage:
 
 ## Corpus
 
-Four PDFs, 2,413 pages, in `data/raw/`:
+Seven documents, three formats, two jurisdictions, ~2,425 pages, in `data/raw/`:
 
-| Document | Pages | What it is |
-|---|---|---|
-| `BILLS-119hr1enr.pdf` | 330 | H.R. 1 **enrolled** — the enacted law |
-| `Xthe_one_big_beautiful_bill_act.pdf` | 940 | Senate substitute amendment (draft) |
-| `Xone_big_beautiful_bill_act_-_full_bill_text.pdf` | 1,116 | House-passed text (draft) |
-| `XThe-One-Big-Beautiful-Bill-...-1.pdf` | 27 | CEA report — advocacy, image-only, OCR'd |
+| Document | Size | Format | What it is |
+|---|---|---|---|
+| `BILLS-119hr1enr.pdf` | 330 pp | PDF | H.R. 1 **enrolled** — the enacted law |
+| `Xthe_one_big_beautiful_bill_act.pdf` | 940 pp | PDF | Senate substitute amendment (draft) |
+| `Xone_big_beautiful_bill_act_-_full_bill_text.pdf` | 1,116 pp | PDF | House-passed text (draft) |
+| `XThe-One-Big-Beautiful-Bill-...-1.pdf` | 27 pp | PDF (image-only) | CEA report — advocacy, OCR'd |
+| `SB1229S– "Arizona Starter Homes Act".pdf` | 4 pp | PDF | AZ SB 1229, engrossed |
+| `HB2681 - 571R - H Ver ....mhtml` | ~5 pp | **MHTML** | AZ HB 2681, engrossed |
+| `Arizona-2025-SB1111-Engrossed-....html` | ~3 pp | **HTML** | AZ SB 1111, engrossed |
 
-Three of the four are the same bill at different stages. That is the central
-problem this pipeline is built around; see [WRITEUP.md](WRITEUP.md).
+Three of the seven are the same bill at different stages — the central problem
+this pipeline is built around. The Arizona bills add a second jurisdiction and
+the only non-PDF inputs. See [WRITEUP.md](WRITEUP.md).
+
+Note on the last one: it is a strike-everything amendment, so its own caption
+("nonhealth regulatory boards") no longer matches its enacting text (a fee on
+foreign wire transfers). Only the operative text is reliable.

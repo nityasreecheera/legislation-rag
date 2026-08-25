@@ -99,10 +99,10 @@ class Result:
     def citation(self) -> str:
         m = self.metadata
         if m.get("section"):
-            return (
-                f"{m['doc_id']} Title {m['title']} SEC. {m['section']}"
-                f" (p. {m['page_start']})"
-            )
+            where = m["doc_id"]
+            if m.get("title"):
+                where += f" Title {m['title']}"
+            return f"{where} SEC. {m['section']} (p. {m['page_start']})"
         return f"{m['doc_id']} p. {m['page_start']}"
 
 
@@ -165,7 +165,14 @@ class Retriever:
         heading = (meta.get("section_heading") or "").strip().lower()
         if not heading:
             return f"{meta['doc_id']}:{meta.get('page_start')}"
-        return re.sub(r"[^a-z0-9 ]", "", heading)
+
+        # Only documents that are versions of the SAME bill may be collapsed.
+        # Heading text alone is not enough: "Short title" appears in every bill
+        # ever written, and grouping two unrelated bills under it would present
+        # one as a variant of the other. Documents with no version_group are
+        # scoped to themselves and never merge.
+        group = meta.get("version_group") or f"solo:{meta['doc_id']}"
+        return f"{group}:" + re.sub(r"[^a-z0-9 ]", "", heading)
 
     def _complete_section(self, result: Result) -> None:
         """Reassemble a result's full section from all of its chunks."""
@@ -218,6 +225,7 @@ class Retriever:
         query: str,
         k: int = 8,
         authority: str | None = None,
+        jurisdiction: str | None = None,
         group_versions: bool = True,
         expand_sections: bool = True,
     ) -> list[Result]:
@@ -232,7 +240,17 @@ class Retriever:
         if not query or not query.strip():
             return []
 
-        where = {"authority": authority} if authority else None
+        clauses = []
+        if authority:
+            clauses.append({"authority": authority})
+        if jurisdiction:
+            clauses.append({"jurisdiction": jurisdiction})
+        if not clauses:
+            where = None
+        elif len(clauses) == 1:
+            where = clauses[0]
+        else:
+            where = {"$and": clauses}
         dense = self._dense(query, CANDIDATE_DEPTH, where)
         allowed = set(dense) if where else None
         lexical = self._lexical(query, CANDIDATE_DEPTH, allowed)

@@ -9,17 +9,20 @@ the corpus before writing code. That hour was the most useful of the four.
 
 The assignment reads like a document-QA problem. This corpus isn't one.
 
-Three of the four PDFs are **the same bill** — H.R. 1 — captured at different
-legislative stages:
+Three of the seven documents are **the same bill** — H.R. 1 — captured at
+different legislative stages:
 
-| Document | Pages | Status |
-|---|---|---|
-| House-passed text | 1,116 | draft; 43% of it never became law |
-| Senate substitute | 940 | draft; replaced the House text wholesale |
-| Enrolled | 330 | **the enacted law** |
-| CEA report | 27 | advocacy *about* the bill; image-only |
+| Document | Pages | Format | Status |
+|---|---|---|---|
+| House-passed text | 1,116 | PDF | draft; 43% of it never became law |
+| Senate substitute | 940 | PDF | draft; replaced the House text wholesale |
+| Enrolled | 330 | PDF | **the enacted law** |
+| CEA report | 27 | PDF (image-only) | advocacy *about* the bill |
+| AZ SB 1229 | 4 | PDF | state bill, engrossed |
+| AZ HB 2681 | ~5 | **MHTML** | state bill, engrossed |
+| AZ SB 1111 | ~3 | **HTML** | state bill, engrossed |
 
-Their text is near-identical. That breaks retrieval in a way that isn't obvious
+The first three have near-identical text. That breaks retrieval in a way that isn't obvious
 until you watch it happen: a query for "no tax on tips" returns the same
 provision three times, at nearly indistinguishable similarity scores, from three
 documents. The top-5 becomes one provision repeated, and four relevant
@@ -40,16 +43,25 @@ odds are good that it exists in some versions and not others.
 They cannot capture *which version said it*, which is the only thing that
 matters here. No embedding model fixes this. Metadata does.
 
+The Arizona bills sharpen the same point from a different angle. They are
+`proposal` — engrossed, passed one chamber, not law — exactly the label the
+federal drafts carry. Without a second axis they collapse into one category, and
+"an earlier House draft would have..." becomes indistinguishable from "an
+Arizona bill would have...". Hence `jurisdiction`. The eval question that proves
+it: asked whether *federal* law restricts municipal home design, the pipeline
+declines, then volunteers that Arizona SB 1229 does — flagged as state, and as
+not enacted.
+
 ---
 
 ## Architecture
 
 ```
-PDFs ──> ingest ──> chunk ──> index ──┬──> Chroma (dense, 768d)
-          │           │               └──> BM25  (lexical)
-          │           │                        │
-      OCR fallback  section                    ▼
-      margin strip  boundaries          RRF fusion
+PDF / HTML / MHTML ──> ingest ──> chunk ──> index ─┬─> Chroma (dense, 768d)
+       │                  │          │              └─> BM25  (lexical)
+       │                  │          │                     │
+  OCR fallback      section boundaries                     ▼
+  margin strip      federal or state                RRF fusion
                                                │
                                      version grouping
                                      advocacy cap (25%)
@@ -71,7 +83,14 @@ field that does the work is `authority`:
 | `proposal` | House / Senate draft | Must be framed as "the House version proposed…" |
 | `advocacy` | CEA report | Must be attributed as a projection, never as law |
 
-The manifest is written by hand, not inferred. There are four documents;
+A second axis, `jurisdiction` (`federal` / `arizona`), keeps a state bill from
+answering a federal question. Two further manifest fields keep document
+conventions out of the code: `section_style` selects the numbering pattern
+(federal `SEC. 70201.` vs state `Section 1.`), and `version_group` marks which
+documents are versions of the *same* bill — only those may be collapsed
+together during retrieval.
+
+The manifest is written by hand, not inferred. There are seven documents;
 a classifier would add a failure mode to save no work. At 10,000 documents this
 inverts — see the scale section.
 
@@ -106,6 +125,13 @@ constraint, not a preference.
 
 The CEA report has no sections, so it chunks per page. Its page number is the
 only citation anchor available.
+
+Arizona bills number sections plainly — `Section 1.` then `Sec. 2.` — which the
+federal pattern cannot match, since its 5-6 digit constraint exists precisely to
+exclude short numbers like cross-references. Rather than run both patterns and
+hope, `section_style` in the manifest says which applies. The web documents have
+no pages at all, so the whole document is one record and the section becomes the
+citation anchor — which is the better anchor anyway.
 
 ### Two extraction bugs worth naming
 
@@ -299,12 +325,14 @@ evidence for this one.
 
 ## Evaluation
 
-11 questions, hand-verified ground truth, in `eval/eval_set.yaml`. Weighted
+15 questions, hand-verified ground truth, in `eval/eval_set.yaml`. Weighted
 toward this corpus's failure modes: four turn on distinguishing law from draft,
-two require abstaining, two require attributing advocacy, and only two are plain
-lookups.
+three require declining (two out-of-corpus, one cross-jurisdiction), two require
+attributing advocacy, one checks the non-PDF ingestion path end to end, one
+checks that a strike-everything amendment is read from its enacting text rather
+than its stale caption, and only four are plain lookups.
 
-**Result: 11/11 passed, 11/11 grounded, 100% citation recall.**
+**Result: 15/15 passed, 15/15 grounded, 100% citation recall.**
 
 **That number should be read sceptically, and here is why.** Both questions that
 initially failed turned out to be bugs in my *evaluation*, not the pipeline:
@@ -327,7 +355,7 @@ So the measurement was adjusted twice after seeing behaviour. That is a mild
 form of overfitting, and 11/11 partly reflects a set that learned what the
 system does. It is a floor on obvious failure, not a quality score.
 
-Other limits: 11 questions is small; phrase matching is crude and catches
+Other limits: 15 questions is small; phrase matching is crude and catches
 blatant framing errors, not subtle ones; and the person who wrote the questions
 also built the system.
 
@@ -344,19 +372,38 @@ and could in principle be cited as though meaningful.
 300 improves segmentation but recovers no detail that isn't there. Body text is
 essentially character-perfect; footnotes and small chart labels are weaker.
 
+**A document can disagree with itself.** Arizona SB 1111 is a strike-everything
+amendment: its caption still reads "nonhealth regulatory boards; challenges;
+prohibition (now: ______)" and its purpose clause reads "relating to
+_______________", both left blank when the original text was struck. Its
+operative text adds ARTICLE 3, "ILLEGAL ALIEN REMITTANCE FEE", to Title 6
+Chapter 12 A.R.S.
+
+I initially recorded this backwards in the manifest — assuming, reasonably, that
+a document's own caption outranks a filename someone typed. It does not here:
+the filename described the current content and the caption was the stale half.
+The pipeline got it right anyway, because it reads enacting text rather than
+labels. The general lesson is narrower than "trust the document over the
+filename": under a striker, only the operative text is reliable, and any
+metadata field can be a fossil.
+
 **The advocacy cap is a blunt instrument.** 25% is a judgement, not a fitted
 parameter. A question genuinely about CEA's modelling gets fewer of its sources
 than it should unless `:authority advocacy` is set explicitly.
 
-**Cross-version grouping relies on heading text.** It works because this corpus
-is one bill, where headings are stable and near-unique. It would degrade badly
-on a corpus where "SHORT TITLE" appears in every document.
+**Cross-version grouping relies on heading text**, scoped by `version_group` so
+only versions of the same bill can collapse together. Adding the Arizona bills
+turned that from a hypothetical into a necessary fix: "Short title" appears in
+several of them, and without scoping, one bill's short-title section would have
+been presented as a variant of another's. Within a version group the heading is
+still the join key, so a provision renamed *and* renumbered between versions
+would still be missed.
 
-**Scope was narrowed.** The assignment supplied California and Arizona documents
-alongside the federal ones, including HTML and MHTML files. I cut them to focus
-on a single coherent problem. The cost is real: the pipeline handles only PDFs,
-so the brief's "mix of formats" is not demonstrated, and there are four
-documents where it asked for five to ten.
+**Scope is still narrowed.** The assignment also supplied two California bills
+(182 pages). I left them out: they are more PDF, demonstrating nothing the
+pipeline cannot already do, and California's absence is what makes one of the
+abstention tests real. Arizona was worth adding because 12 pages bought two new
+input formats and a second jurisdiction.
 
 **Conversation memory is narrow.** Prior turns replay for context, but prior
 excerpts do not, so a follow-up cannot cite something retrieved two turns ago.

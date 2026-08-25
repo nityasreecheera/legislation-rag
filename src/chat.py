@@ -29,6 +29,7 @@ HELP = """\
 Commands
   :sources            what was retrieved for the last answer, with scores
   :authority <level>  restrict retrieval - law | proposal | advocacy | all
+  :jurisdiction <j>   restrict retrieval - federal | arizona | all
   :k <n>              chunks retrieved per question (default 8)
   :history            questions asked so far
   :clear              forget the conversation
@@ -37,8 +38,12 @@ Commands
 
 Authority levels
   law        the enrolled bill - what the statute actually says
-  proposal   House / Senate drafts - may never have been enacted
+  proposal   House / Senate drafts and Arizona bills - not enacted
   advocacy   the CEA report - projections, not law
+
+Jurisdictions
+  federal    H.R. 1 and the CEA report
+  arizona    three state bills, all engrossed
 """
 
 
@@ -48,6 +53,7 @@ class Shell:
         self.history: list[Turn] = []
         self.last = None
         self.authority: str | None = None
+        self.jurisdiction: str | None = None
         self.k = 8
 
     # -- commands --------------------------------------------------------------
@@ -86,6 +92,17 @@ class Shell:
         else:
             print("Usage: :authority law | proposal | advocacy | all")
 
+    def set_jurisdiction(self, value: str) -> None:
+        value = value.strip().lower()
+        if value in {"", "all", "none"}:
+            self.jurisdiction = None
+            print("Retrieving from all jurisdictions.")
+        elif value in {"federal", "arizona"}:
+            self.jurisdiction = value
+            print(f"Restricted to jurisdiction={value}.")
+        else:
+            print("Usage: :jurisdiction federal | arizona | all")
+
     def set_k(self, value: str) -> None:
         try:
             self.k = max(1, min(30, int(value)))
@@ -105,6 +122,8 @@ class Shell:
                 self.show_sources()
             case "authority" | "a":
                 self.set_authority(argument)
+            case "jurisdiction" | "j":
+                self.set_jurisdiction(argument)
             case "k":
                 self.set_k(argument)
             case "history":
@@ -139,7 +158,11 @@ class Shell:
                 continue
 
             answer = self.pipeline.ask(
-                line, k=self.k, history=self.history, authority=self.authority
+                line,
+                k=self.k,
+                history=self.history,
+                authority=self.authority,
+                jurisdiction=self.jurisdiction,
             )
             self.last = answer
             print()

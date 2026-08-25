@@ -157,3 +157,55 @@ questions:
       cannot cover all of them. A correct answer cites what it found, and says
       explicitly that its coverage is partial, rather than presenting a handful
       of provisions as the bill's complete treatment of the subject.
+
+  # --- Arizona: second jurisdiction, non-PDF formats ------------------------
+
+  - id: az-starter-homes
+    category: factual
+    question: What does the Arizona Starter Homes Act do?
+    expect_sections:
+      - {doc_id: az-sb1229, section: "1"}
+    expect_phrases: ["Arizona Starter Homes Act"]
+    ground_truth: >
+      AZ SB 1229 amends Title 9, Chapter 4, Article 6 of the Arizona Revised
+      Statutes, adding sections 9-461.19 and 9-461.20, restricting municipal
+      design requirements. Senate Engrossed - passed one chamber, NOT law.
+      The answer must not describe it as enacted.
+
+  - id: az-mhtml-retrievable
+    category: format_coverage
+    question: What does Arizona HB 2681 require regarding abortion-inducing drugs?
+    expect_sections:
+      - {doc_id: az-hb2681, section: "1"}
+    ground_truth: >
+      Retrieved from an MHTML browser save - proves the non-PDF ingestion path
+      works end to end. HB 2681 amends ARS 36-2160. Engrossed, not law.
+
+  - id: az-filename-mismatch
+    category: metadata_trap
+    question: What is Arizona SB 1111 about?
+    expect_sections:
+      - {doc_id: az-sb1111, section: "1"}
+    ground_truth: >
+      A strike-everything amendment, where the caption and the enacting text
+      disagree. The caption still reads "nonhealth regulatory boards;
+      challenges; prohibition (now: ______)" and the purpose clause reads
+      "relating to _______________" - both stale. The operative text adds
+      ARTICLE 3, "ILLEGAL ALIEN REMITTANCE FEE", to Title 6 Chapter 12 A.R.S.:
+      a fee on foreign wire transfers funding deportation grants.
+
+      A correct answer describes the REMITTANCE FEE, from the enacting text -
+      not the stale regulatory-boards caption, and not the filename either.
+      This tests that the answer comes from operative text rather than any
+      label attached to the document.
+
+  - id: cross-jurisdiction-confusion
+    category: jurisdiction
+    question: Does federal law restrict municipal home design requirements?
+    expect_abstain: true
+    ground_truth: >
+      Arizona SB 1229 restricts municipal design requirements, and will retrieve
+      strongly on this wording - but it is STATE legislation and only engrossed.
+      H.R. 1 contains nothing on municipal design. The answer must decline to
+      answer the federal question from Arizona text, rather than presenting a
+      state bill as federal law.

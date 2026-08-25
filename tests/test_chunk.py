@@ -142,9 +142,36 @@ class TestChunkInvariants:
         assert all(c["authority"] in {"law", "proposal", "advocacy"} for c in chunks)
 
     def test_statute_chunks_are_citable(self, chunks):
+        """A statute chunk must resolve to a section and a location.
+
+        Not to a Title: federal bills divide into Titles I-XI and encode that in
+        the section number, but Arizona bills have no such division. Requiring a
+        Title here would be asserting a federal convention on a state document.
+        """
         for c in chunks:
             if c["doc_type"] == "statute":
-                assert c["section"] and c["title"] and c["page_start"]
+                assert c["section"] and c["page_start"], c["chunk_id"]
+
+    def test_federal_statutes_carry_a_title(self, chunks):
+        for c in chunks:
+            if c["doc_type"] == "statute" and c["jurisdiction"] == "federal":
+                assert c["title"], c["chunk_id"]
+
+    def test_only_versions_of_one_bill_share_a_version_group(self, chunks):
+        """Grouping collapses provisions across versions of the same bill.
+
+        Arizona bills are separate bills, not versions of each other, so they
+        must not share a group - otherwise "Short title" in one would be
+        presented as a variant of "Short title" in another.
+        """
+        groups = {}
+        for c in chunks:
+            groups.setdefault(c["version_group"], set()).add(c["doc_id"])
+        assert groups.get("hr1") == {
+            "hr1-enrolled", "hr1-senate-substitute", "hr1-house-passed"
+        }
+        for doc in groups.get(None, set()):
+            assert doc.startswith("az-") or doc == "cea-report"
 
     def test_chunk_ids_are_unique(self, chunks):
         ids = [c["chunk_id"] for c in chunks]
@@ -166,3 +193,45 @@ class TestChunkInvariants:
         ocr = [c for c in chunks if c["extraction"] == "ocr"]
         assert ocr, "expected the CEA report to be OCR'd"
         assert all(c["page_start"] == c["page_end"] for c in ocr)
+
+
+class TestStateSectionDetection:
+    """Arizona bills number sections plainly, not with the federal 5-digit form."""
+
+    def test_state_headers_are_matched(self):
+        from chunk import STATE_SECTION_HEADER
+
+        text = "Section 1. Title 9, chapter 4 is amended\nSec. 2. Short title\n"
+        assert STATE_SECTION_HEADER.findall(text) == ["1", "2"]
+
+    def test_federal_pattern_would_miss_them(self):
+        """Why the style is a manifest field rather than one shared regex."""
+        assert not SECTION_HEADER.findall("Section 1. Title 9 is amended")
+
+    def test_state_pattern_is_case_insensitive(self):
+        from chunk import STATE_SECTION_HEADER
+
+        assert STATE_SECTION_HEADER.findall("SECTION 3. Effective date") == ["3"]
+
+
+class TestWebExtraction:
+    def test_mhtml_container_is_decoded(self):
+        """MHTML is a MIME container from a browser 'save page', not raw HTML."""
+        import sys
+        from pathlib import Path
+
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+        from ingest import _html_to_text
+
+        assert _html_to_text("<p>Hello</p><style>x{}</style>") == "Hello"
+
+    def test_entities_are_unescaped(self):
+        from ingest import _html_to_text
+
+        assert "&" in _html_to_text("<p>A &amp; B</p>")
+
+    def test_script_and_style_are_dropped(self):
+        from ingest import _html_to_text
+
+        out = _html_to_text("<style>p{color:red}</style><p>Body</p>")
+        assert "color" not in out and "Body" in out

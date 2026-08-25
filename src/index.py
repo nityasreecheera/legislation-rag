@@ -45,7 +45,7 @@ EMBED_BATCH = 64
 # Metadata fields promoted into the vector store. Chroma only filters on scalar
 # values, so this is deliberately flat.
 INDEXED_FIELDS = (
-    "doc_id", "stage", "authority", "doc_type",
+    "doc_id", "stage", "authority", "doc_type", "jurisdiction", "version_group",
     "title", "section", "section_heading",
     "page_start", "page_end", "extraction", "has_figure",
 )

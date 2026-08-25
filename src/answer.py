@@ -50,9 +50,11 @@ FALLBACK_BETA = "server-side-fallback-2026-07-01"
 CITATION = re.compile(r"\[([a-z0-9\-]+:[^\]\s]+)\]")
 
 SYSTEM = """\
-You answer questions about H.R. 1 (the "One Big Beautiful Bill Act") using only \
-the excerpts provided. You have no other source. Do not use prior knowledge \
-about this bill or about US law.
+You answer questions about legislation using only the excerpts provided. The \
+corpus is H.R. 1 (the federal "One Big Beautiful Bill Act") in three versions, \
+a Council of Economic Advisers report about it, and three Arizona state bills. \
+You have no other source. Do not use prior knowledge about these bills or about \
+US law.
 
 CITATIONS
 Every factual claim must be followed by the chunk id it came from, in square \
@@ -77,6 +79,15 @@ arguing for its own bill. Its figures are projections and political claims, not 
 law and not neutral analysis. Never present them as what the bill does. \
 Attribute them: "the CEA projects..." and note it is an executive-branch body \
 advocating for the bill.
+
+JURISDICTION
+The corpus spans two jurisdictions, and they must never be mixed. Excerpts are \
+labelled `jurisdiction=federal` (H.R. 1 and the CEA report) or \
+`jurisdiction=arizona` (state bills, all engrossed - passed one chamber, not \
+enacted). A question about federal law cannot be answered from an Arizona bill, \
+and vice versa. If the excerpts are from the wrong jurisdiction for the \
+question, say so rather than answering from them. Always name the jurisdiction \
+when citing a state bill.
 
 VERSIONS
 The same provision often appears in several versions under different section \
@@ -151,11 +162,17 @@ def format_context(results: list[Result]) -> str:
     blocks = []
     for result in results:
         meta = result.metadata
-        header = f"[{result.chunk_id}] authority={meta['authority']}"
+        header = (
+            f"[{result.chunk_id}] authority={meta['authority']}"
+            f" jurisdiction={meta.get('jurisdiction', 'federal')}"
+        )
         if meta.get("stage"):
             header += f" stage={meta['stage']}"
         if meta.get("section"):
-            header += f" | {meta['doc_id']} Title {meta['title']} SEC. {meta['section']}"
+            where = f" | {meta['doc_id']}"
+            if meta.get("title"):
+                where += f" Title {meta['title']}"
+            header += f"{where} SEC. {meta['section']}"
             if meta.get("section_heading"):
                 header += f" - {meta['section_heading']}"
         else:
@@ -262,6 +279,7 @@ class Pipeline:
         k: int = 8,
         history: list[Turn] | None = None,
         authority: str | None = None,
+        jurisdiction: str | None = None,
     ) -> Answer:
         if not question or not question.strip():
             return Answer(
@@ -272,7 +290,9 @@ class Pipeline:
 
         history = history or []
         search_query = self.rewrite_query(question.strip(), history)
-        results = self.retriever.search(search_query, k=k, authority=authority)
+        results = self.retriever.search(
+            search_query, k=k, authority=authority, jurisdiction=jurisdiction
+        )
         if not results:
             return Answer(
                 question=question,
@@ -344,10 +364,10 @@ def render(answer: Answer) -> str:
         if not meta:
             return f"[UNVERIFIED: {match.group(1)}]"
         if meta.get("section"):
-            return (
-                f"[{meta['doc_id']} Title {meta['title']} "
-                f"SEC. {meta['section']}, p. {meta['page_start']}]"
-            )
+            where = meta["doc_id"]
+            if meta.get("title"):
+                where += f" Title {meta['title']}"
+            return f"[{where} SEC. {meta['section']}, p. {meta['page_start']}]"
         return f"[{meta['doc_id']}, p. {meta['page_start']}]"
 
     lines = [CITATION.sub(expand, answer.text), ""]
@@ -362,10 +382,10 @@ def render(answer: Answer) -> str:
         lines.append("Sources:")
         for _, meta in sources:
             if meta.get("section"):
-                where = (
-                    f"{meta['doc_id']} Title {meta['title']} "
-                    f"SEC. {meta['section']} (p. {meta['page_start']})"
-                )
+                where = meta["doc_id"]
+                if meta.get("title"):
+                    where += f" Title {meta['title']}"
+                where += f" SEC. {meta['section']} (p. {meta['page_start']})"
             else:
                 where = f"{meta['doc_id']} p. {meta['page_start']}"
             lines.append(f"  - [{meta['authority']}] {where}")

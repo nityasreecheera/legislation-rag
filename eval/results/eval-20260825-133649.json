@@ -1,0 +1,311 @@
+[
+  {
+    "id": "tips-cap",
+    "category": "factual",
+    "question": "What is the maximum annual deduction for qualified tips under the enacted bill?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:70201"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:70201"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**$25,000 per taxable year.** Under the enrolled H.R. 1, SEC. 70201 (new Internal Revenue Code \u00a7 224), the deduction for qualified tips \"shall not exceed $25,000\" for any taxable year [hr1-enrolled:70201:1].\n\nTwo limits qualify that figure:\n\n- **Income phase-down:** the deduction is reduced by $100 for each $1,000 by which modified adjusted gross income exceeds $150,000 ($300,000 on a joint return), but not below zero [hr1-enrolled:70201:1].\n- **Termination:** no deduction is allowed for taxable years beginning after December 31, 2028; the provision applies to taxable years beginning after December 31, 2024 [hr1-enrolled:70201:1].\n\nOther conditions: the taxpayer must include a Social Security number on the return, married taxpayers must file jointly, and the deduction is available to non-itemizers [hr1-enrolled:70201:1].\n\n(The same provision appears as SEC. 70201 in the Senate substitute [hr1-senate-substitute:70201:1] and SEC. 110101 in the House-passed bill [hr1-house-passed:110101:0]; I don't have their text, so I can't say whether their dollar limits differ.)"
+  },
+  {
+    "id": "anniversary-funding",
+    "category": "factual",
+    "question": "How much does the enacted bill appropriate for America's 250th anniversary, and to whom?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:50305"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:50305"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**$150,000,000**, appropriated to the Secretary of the Interior acting through the Director of the National Park Service, for fiscal year 2025, for events, celebrations, and activities surrounding the observance and commemoration of the 250th anniversary of the founding of the United States. The funds remain available through fiscal year 2028. This is SEC. 50305 of the enrolled H.R. 1 [hr1-enrolled:50305:0].\n\nThe same provision appears in the earlier drafts at SEC. 50306 of the Senate substitute [hr1-senate-substitute:50306:0] and SEC. 80310 of the House-passed bill [hr1-house-passed:80310:0]; their text was not retrieved, so I can't say whether the amounts there differed."
+  },
+  {
+    "id": "millionaire-unemployment",
+    "category": "factual",
+    "question": "Does the enacted law restrict unemployment benefits for high earners?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:73001"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:73001"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "Yes. Section 73001 of the enrolled H.R. 1, \"Ending Unemployment Payments to Jobless Millionaires,\" bars federal funds from being used to pay unemployment compensation benefits, under a federal unemployment compensation program, in a year to an individual whose wages during their base period equal or exceed $1,000,000 \u2014 and also bars federal funds for the administrative costs of making such payments [hr1-enrolled:73001:0].\n\nMechanics:\n\n- **Self-certification.** Applications for unemployment compensation under a federal program must include a form or procedure for the applicant to certify that base-period wages do not equal or exceed $1,000,000 [hr1-enrolled:73001:0].\n- **Verification.** State agencies administering these programs must use available systems to verify wage eligibility by assessing claimant income \"to the degree possible\" [hr1-enrolled:73001:0].\n- **Recovery.** State agencies must require repayment of amounts received to which the individual was not entitled [hr1-enrolled:73001:0].\n- **Effective date.** The prohibition applies to weeks of unemployment beginning on or after the date of enactment [hr1-enrolled:73001:0].\n\n**Scope.** The restriction reaches only \"unemployment compensation program[s] of the United States,\" defined as: unemployment compensation for federal civilian employees (5 U.S.C. ch. 85, subch. I); for ex-servicemembers (subch. II); extended benefits under the Federal-State Extended Unemployment Compensation Act of 1970; any federal temporary extension of unemployment compensation; any federal program increasing the weekly benefit amount; and any other federal program providing unemployment compensation as determined by the Secretary of Labor [hr1-enrolled:73001:0].\n\nOne limit on what I can tell you: the excerpt does not address ordinary state-funded regular unemployment compensation, so I can't say from these documents what effect, if any, the provision has there."
+  },
+  {
+    "id": "section-70201-ambiguity",
+    "category": "version_discrimination",
+    "question": "What does SEC. 70201 cover?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:70201",
+      "hr1-house-passed:70201"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:70201",
+      "hr1-house-passed:70201"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**It depends which version you mean \u2014 the number covers two entirely different subjects.**\n\n**Enrolled bill (law): SEC. 70201 \u2014 \"No Tax on Tips.\"** [hr1-enrolled:70201:0] It creates a new section 224 of the Internal Revenue Code allowing a deduction for qualified tips reported on specified information statements (or on Form 4137), capped at $25,000 per year and phased down by $100 for each $1,000 of modified AGI above $150,000 ($300,000 joint). Key features:\n\n- \"Qualified tips\" are cash tips (including charged tips and tips under tip-sharing arrangements) received in an occupation that customarily and regularly received tips on or before Dec. 31, 2024; the amount must be paid voluntarily, not negotiated, and determined by the payor, and cannot come from a specified service trade or business under \u00a7 199A(d)(2) [hr1-enrolled:70201:0].\n- Available to non-itemizers (added to \u00a7 63(b)), requires the taxpayer's SSN, and requires married taxpayers to file jointly [hr1-enrolled:70201:0].\n- Terminates for taxable years beginning after Dec. 31, 2028; generally effective for taxable years beginning after Dec. 31, 2024 [hr1-enrolled:70201:0].\n- It also extends the \u00a7 45B tip credit to beauty-service businesses (barbering/hair care, nail care, esthetics, body and spa treatments), adds tip-reporting requirements to \u00a7\u00a7 6041, 6041A, 6050W and 6051, and directs Treasury to publish a list of traditionally tipped occupations within 90 days of enactment [hr1-enrolled:70201:0].\n\nThe same provision appears in the Senate substitute as SEC. 70201 [hr1-senate-substitute:70201:0] (a proposal; its text is not among the excerpts I have).\n\n**House-passed draft: SEC. 70201 \u2014 \"Congressional Review Act Compliance,\"** an unrelated provision that would have appropriated $10,000,000 to OMB for FY2025 (available through Sept. 30, 2034) for OIRA to conduct de novo analysis of compliance costs of rules submitted under 5 U.S.C. \u00a7 801(a)(1)(A) and to publish those analyses and budgetary-effect estimates before transmitting rules to Congress and the Comptroller General [hr1-house-passed:70201:0]. This is a draft provision, not enacted text; I can't tell from these excerpts whether it survived elsewhere in the final bill."
+  },
+  {
+    "id": "anniversary-renumbering",
+    "category": "version_discrimination",
+    "question": "Which section covers celebrating America's 250th anniversary in each version of the bill?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:50305",
+      "hr1-house-passed:80310"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:50305",
+      "hr1-house-passed:80310"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "The \"Celebrating America's 250th Anniversary\" provision appears as:\n\n- **Enrolled bill (law):** SEC. 50305, in Title V \u2014 appropriates $150,000,000 to the Secretary of the Interior, acting through the Director of the National Park Service, for FY2025, available through FY2028, for events, celebrations, and activities commemorating the 250th anniversary of the founding of the United States [hr1-enrolled:50305:0].\n- **Senate substitute (proposal):** SEC. 50306 [hr1-senate-substitute:50306:0].\n- **House-passed bill (proposal):** SEC. 80310 [hr1-house-passed:80310:0].\n\nI only have the enrolled text; the Senate and House versions' wording was not retrieved, so I can't say whether their terms differ.\n\nA related but separate provision, \"Garden of Heroes,\" is SEC. 86001 in the enrolled bill ($40,000,000 to the National Endowment for the Humanities for statues, including under the executive order relating to celebrating America's birthday) [hr1-enrolled:86001:0], appearing as SEC. 87001 in the Senate substitute [hr1-senate-substitute:87001:0]."
+  },
+  {
+    "id": "anniversary-version-diff",
+    "category": "version_comparison",
+    "question": "Did the House-passed and enacted versions fund the 250th anniversary the same way?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:50305",
+      "hr1-house-passed:80310"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:50305",
+      "hr1-house-passed:80310"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "I can't compare them \u2014 I only have the enacted text.\n\n**What the enrolled law says:** SEC. 50305 of H.R. 1 appropriates $150,000,000 to the Secretary of the Interior, acting through the Director of the National Park Service, for fiscal year 2025, for events, celebrations, and activities commemorating the 250th anniversary of the founding of the United States, to remain available through fiscal year 2028 [hr1-enrolled:50305:0].\n\n**What I don't have:** The corresponding provision appears in the House-passed bill as SEC. 80310 (p. 650) [hr1-house-passed:80310:0] and in the Senate substitute as SEC. 50306 (p. 226) [hr1-senate-substitute:50306:0], but only their location was retrieved, not their text. So I can't tell you whether the House draft used the same dollar amount, the same recipient agency, or the same period of availability.\n\nTo answer the question I would need the text of hr1-house-passed SEC. 80310."
+  },
+  {
+    "id": "house-only-provision",
+    "category": "authority",
+    "question": "What does the bill do about a National Accuracy Clearinghouse for SNAP?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-house-passed:10009"
+    ],
+    "matched_sections": [
+      "hr1-house-passed:10009"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Short answer:** The only excerpt I have on this is from the **House-passed draft**, not the enrolled law \u2014 so I can't tell you whether it was enacted.\n\n**What the House draft proposed:** SEC. 10009 of the House-passed H.R. 1 would have amended section 11(x)(2) of the Food and Nutrition Act of 2008 (7 U.S.C. 2020(x)(2)) \u2014 the National Accuracy Clearinghouse provision \u2014 by adding a new subparagraph (D) on \"data sharing to prevent other multiple issuances.\" Under it, a State agency would have to use each indication of a multiple issuance, or each indication that someone receiving SNAP benefits in one State had applied for SNAP in another State, to prevent multiple issuances of *other* federal and State assistance program benefits that the State agency administers through the same integrated eligibility system it uses for SNAP [hr1-house-passed:10009:0].\n\n**Caveats:**\n- This is a `proposal`. It may have been altered or dropped before enactment; the enrolled text of any corresponding section was not retrieved, so I can't say it is current law.\n- To answer definitively, I'd need the enrolled bill's Title I subtitle A provisions (or confirmation that no National Accuracy Clearinghouse section appears there).\n\n**Related but distinct:** the enrolled bill does contain a duplicate-enrollment provision for *Medicaid and CHIP* \u2014 SEC. 71103 \u2014 requiring the Secretary to establish, by October 1, 2029, a system for States to prevent simultaneous enrollment across multiple States, with $10,000,000 for FY2026 to build it and $20,000,000 for FY2029 to maintain it [hr1-enrolled:71103:2]. That is a different program from SNAP and is not the National Accuracy Clearinghouse."
+  },
+  {
+    "id": "cea-take-home-pay",
+    "category": "authority",
+    "question": "How much will the bill increase take-home pay for a typical family?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "cea-report:None"
+    ],
+    "matched_sections": [
+      "cea-report:None"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**The bill text contains no such figure \u2014 the only numbers I have come from the Council of Economic Advisers, an executive-branch body arguing for the bill. They are projections, not law.**\n\nWhat the CEA projects:\n\n- **$7,592 to $10,902** over four years, and **$5,503 to $9,070** over ten years, in increased annual wages and take-home pay from all tax provisions combined. The CEA defines this as after-tax earnings for *a median-income household with an overtime worker and two children* \u2014 not a generic family. Excluding the no-tax-on-overtime provision drops the 4-year range to $6,332\u2013$9,502 [cea-report:p3:0].\n- Separately, the CEA says the individual rate and child-tax-credit provisions alone permanently boost take-home pay by about **$2,340** for a typical family with two children, measured against TCJA expiration [cea-report:p9:0].\n- The CEA also cites an average **$1,300** benefit from no tax on tips and **$490\u2013$670** per senior from the enhanced senior deduction, which it says are *not* included in the table above [cea-report:p3:0].\n\nTwo cautions:\n\n1. These are the administration's own modeled estimates against a counterfactual of TCJA expiration, presented in a document advocating for the bill. Treat them as contested projections.\n2. The CEA report describes bills still in draft. It says the House version raised the child tax credit to $2,500 for four years and the Senate Finance version to $2,200 permanently and indexed [cea-report:p9:0]. The **enacted** text sets the credit at **$2,200**, indexed for inflation after 2025, with the refundable portion capped at $1,400 (also indexed) [hr1-enrolled:70104:1]. So the CEA's figures do not all correspond to what was enacted."
+  },
+  {
+    "id": "out-of-corpus-state-law",
+    "category": "abstention",
+    "question": "What does California SB 131 say about CEQA exemptions?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": true,
+    "expected_sections": [],
+    "matched_sections": [],
+    "citation_recall": null,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "I don't find that in these documents.\n\nThe corpus here covers H.R. 1 (federal), a Council of Economic Advisers report on it, and three Arizona state bills \u2014 no California legislation at all, and nothing on CEQA. The excerpts retrieved for this question are all federal H.R. 1 material (opportunity zones, Medicaid community engagement requirements, provider taxes, BLM land in Nevada, and so on), which has no bearing on California environmental review law.\n\nTo answer, I would need the text of California SB 131 itself, which is outside this corpus."
+  },
+  {
+    "id": "absent-topic",
+    "category": "abstention",
+    "question": "Does H.R. 1 change the tax treatment of cannabis businesses under section 280E?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [],
+    "matched_sections": [],
+    "citation_recall": null,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "I don't find any provision on section 280E or cannabis businesses in the excerpts retrieved.\n\nThe excerpts I have touch section **280C** (the \"no double benefit\" rules coordinating deductions with the research credit and the paid family and medical leave credit) \u2014 amended by SEC. 70302 of the enrolled bill [hr1-enrolled:70302:4] and SEC. 70304 of the enrolled bill [hr1-enrolled:70304:2] \u2014 but that is a different Code section from 280E, and nothing here addresses controlled substances or cannabis.\n\nTo answer this I would need excerpts of the enrolled bill's text (or its table of contents) covering section 280E of the Internal Revenue Code or trafficking in controlled substances. Absent that, I can't say either way whether H.R. 1 touches 280E."
+  },
+  {
+    "id": "partial-coverage",
+    "category": "scope_limits",
+    "question": "What does H.R. 1 say about climate change?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [
+      "hr1-enrolled:60018"
+    ],
+    "matched_sections": [
+      "hr1-enrolled:60018"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Short answer:** The excerpts I have touch on climate only glancingly \u2014 I don't have a comprehensive retrieval of H.R. 1's climate-related provisions. What I can see falls into two areas:\n\n**1. Rescinding climate data funding (enacted).** SEC. 60018 of the enrolled bill rescinds the unobligated balances of amounts made available to carry out section 60401 of Public Law 117\u2013169 \u2014 funding for environmental and climate data collection [hr1-enrolled:60018:0]. The same provision appears as SEC. 60018 in the Senate substitute draft [hr1-senate-substitute:60018:0].\n\n**2. Emissions accounting in the clean fuel production credit (enacted).** SEC. 70521 of the enrolled bill extends the section 45Z clean fuel production credit through December 31, 2029, but narrows how emissions are counted: it bars negative emission rates for transportation fuel (with a carve-out permitting below-zero rates for fuels derived from animal manure), requires emissions rates to be adjusted to exclude emissions attributed to indirect land use change, and requires that qualifying fuel be exclusively derived from feedstock produced or grown in the United States, Mexico, or Canada [hr1-enrolled:70521:1]. It also adds restrictions barring the credit to specified foreign entities and, after two years, foreign-influenced entities [hr1-enrolled:70521:1]. This provision appears as SEC. 70521 in the Senate substitute and SEC. 111112 in the House-passed bill [hr1-senate-substitute:70521:1] [hr1-house-passed:111112:1].\n\n**What I'd need to answer properly:** H.R. 1 is a very long bill, and a full answer would require retrieval of Title VII's energy tax credit sections generally (wind, solar, EV, hydrogen, efficiency credits) and any other Title VI environmental rescissions. Nothing here should be read as an exhaustive account of the bill's treatment of climate.\n\nNote also that the Council of Economic Advisers report in this corpus is an executive-branch document arguing for the bill; the excerpt I have from it addresses expensing provisions and investment, not climate [cea-report:p8:0]."
+  },
+  {
+    "id": "az-starter-homes",
+    "category": "factual",
+    "question": "What does the Arizona Starter Homes Act do?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [
+      "az-sb1229:1"
+    ],
+    "matched_sections": [
+      "az-sb1229:1"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Arizona SB 1229 \u2014 the \"Arizona Starter Homes Act\"** [az-sb1229:2:0]. Note this is an Arizona state bill at the **engrossed** stage: it has passed one chamber and is *not* enacted law.\n\nIt would add two new sections to Title 9, chapter 4, article 6, Arizona Revised Statutes [az-sb1229:1:3]:\n\n**\u00a7 9-461.19 \u2014 home design / buyer choice.** A municipality could not interfere with a home buyer's right to choose a home's features, amenities, structure, floor plan, or interior and exterior design; and could not require (1) shared features or amenities that would need an HOA, condominium or other association to maintain or operate them (unless federal law requires it), or (2) screening, walls or fences on residential property [az-sb1229:1:3].\n\n**\u00a7 9-461.20 \u2014 lot and building standards.** A municipality could not adopt or enforce any code, ordinance, regulation or other requirement establishing, directly or indirectly:\n- minimum lot sizes over 3,000 sq ft, for new developments of five or more acres that will be platted in single-family residential zones (with an exception where multiple lots under five acres with existing dwellings are aggregated);\n- minimum single-family home square footage or dimensions greater than what the municipality requires for any other dwelling type as of the section's effective date;\n- maximum or minimum lot coverage for a single-family home and accessory structures on lots under 10,000 sq ft;\n- minimum setbacks greater than 5 ft from side lot lines and 10 ft from front and rear lines (up to 18 ft from the back of the sidewalk or lot line for a street-facing garage portion);\n- design, architectural or aesthetic elements for single-family homes, except in designated historic districts or areas on the National Register of Historic Places [az-sb1229:1:3].\n\nMunicipalities remain free to allow *smaller* lot sizes and setbacks than these thresholds [az-sb1229:1:3].\n\n**Carve-outs and scope (both sections).** Neither section supersedes applicable building codes, fire codes, or public health and safety regulations; \u00a7 9-461.20 also preserves utility clearance requirements, utility easements recorded as of the effective date, and minimum parking requirements, and lets municipalities require electric and water utility plans. Municipalities may still require construction of or payment for necessary public services under \u00a7 9-463.05 and the Arizona and U.S. Constitutions. Neither section applies to lots on tribal land or in a military airport high noise or accident potential zone, and both apply only to developments constructed after the effective date in municipalities with populations over 70,000 [az-sb1229:1:3].\n\n**Stated rationale.** The bill includes legislative findings that Arizona faces a severe housing shortage caused in part by highly restrictive regulations, and that property rights are a matter of statewide concern not subject to further municipal regulation [az-sb1229:1:3]."
+  },
+  {
+    "id": "az-mhtml-retrievable",
+    "category": "format_coverage",
+    "question": "What does Arizona HB 2681 require regarding abortion-inducing drugs?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "az-hb2681:1"
+    ],
+    "matched_sections": [
+      "az-hb2681:1"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Arizona HB 2681 is a state bill that has passed one chamber (engrossed) \u2014 it is a proposal, not enacted law.** It would amend section 36-2160, Arizona Revised Statutes [az-hb2681:1:0].\n\n**What it would require of physicians providing abortion-inducing drugs:**\n\n- **In-person examination**, plus, before providing the drug: independently verifying a pregnancy exists; determining the patient's blood type and, if Rh negative, offering RhoGAM at the time of the abortion (or, if gestation is under twelve weeks and blood type is unknown, informing the patient of the risks of not having Rh testing); informing the patient of possible physical and psychological aftereffects and side effects, including bleeding, pain, nausea, and that she may see the remains of the unborn child; and documenting in the chart the gestational age, intrauterine location of the pregnancy, and whether Rh treatment was offered and received [az-hb2681:1:0].\n- **Complication management credentials**: the physician must be credentialed and competent to handle complications, including emergency transfers, or have a signed agreement with an associated physician who is; the agreement must be producible on demand by the patient or the department, and the patient must be given the associated physician's name and phone number [az-hb2681:1:0].\n- **Follow-up visit** scheduled roughly seven to fourteen days after the drug is administered, to confirm the pregnancy is completely terminated and assess bleeding, with reasonable efforts to ensure the patient returns and a description of those efforts (date, time, name of person making them) in the medical record [az-hb2681:1:0].\n- **Retained mail/courier ban**: manufacturers, suppliers, physicians, or any other person are prohibited from providing an abortion-inducing drug by courier, delivery, or mail service [az-hb2681:1:0].\n\n**Civil enforcement.** A woman given the drug in violation, a minor's parent or guardian, or the father of the unborn child (subject to exceptions for sexual assault, incest, domestic violence charges/convictions, protective orders, or terminated parental rights) may sue a person who intentionally or recklessly violates the section. Suit is filed in superior court in the woman's county of residence; relief includes damages for psychological, emotional and physical injuries, $5,000 statutory damages, and attorney fees and costs. The court must rule on keeping the woman's identity confidential, plaintiffs must proceed under a pseudonym absent the woman's written consent, and no action may be brought against the woman who received the drug [az-hb2681:1:0].\n\n**Other provisions.** The section does not apply to drugs that may cause abortion but are prescribed for other medical indications [az-hb2681:1:0]. The bill includes legislative findings on chemical abortion complication rates, ectopic pregnancy symptoms, Rh testing, and informed consent [az-hb2681:2:0], and states that it does not create or recognize a right to abortion or make lawful an otherwise unlawful abortion [az-hb2681:3:0]."
+  },
+  {
+    "id": "az-filename-mismatch",
+    "category": "metadata_trap",
+    "question": "What is Arizona SB 1111 about?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": false,
+    "cited_nothing": false,
+    "expected_sections": [
+      "az-sb1111:1"
+    ],
+    "matched_sections": [
+      "az-sb1111:1"
+    ],
+    "citation_recall": 1.0,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "**Arizona SB 1111 (state bill, engrossed \u2014 passed one chamber, not enacted)** would create a fee on foreign wire transfers of money and use the proceeds to fund deportation-related grants, with an offsetting state income tax credit.\n\nKey provisions:\n\n- **New remittance fee.** It adds Title 6, chapter 12, article 3, A.R.S., titled \"Illegal Alien Remittance Fee.\" A licensee (a person licensed under article 1 of that chapter) must charge a fee to anyone initiating a foreign wire transmission of money: $25 for transactions under $500, and $25 plus 5% of the amount over $500 for transactions of $500 or more [az-sb1111:1:0].\n- **Collection.** Licensees pay the fees to the Arizona Department of Revenue at the same time they pay transaction privilege tax under section 42-5064; if no transaction privilege tax is paid, the fee is still due and becomes delinquent per section 42-5014(A) [az-sb1111:1:0].\n- **Arizona deportations fund.** Net revenues go into a new Arizona deportations fund administered by the state treasurer, subject to legislative appropriation and exempt from lapsing. Monies fund grants to Arizona law enforcement agencies for direct involvement in apprehending an illegal alien \u2014 $2,500 per person apprehended and deported, distributed on confirmation from U.S. Immigration and Customs Enforcement or another federal agency that the person was deported [az-sb1111:1:0].\n- **Income tax credit.** It adds A.R.S. 43-1080, allowing a credit against income taxes equal to the amount the taxpayer paid in foreign wire transmission fees under section 6-1252 during the taxable year [az-sb1111:3:0]. The stated purpose is to \"support taxpayers in this state who are subject to the international money wire transfer assessment\" [az-sb1111:4:0].\n- **Review schedule.** It amends A.R.S. 43-222 to add the new 43-1080 credit to the joint legislative income tax credit review committee's schedule for years ending in 0 and 5 [az-sb1111:2:0].\n\nNote this is Arizona state legislation and is unrelated to the federal H.R. 1 material in this corpus."
+  },
+  {
+    "id": "cross-jurisdiction-confusion",
+    "category": "jurisdiction",
+    "question": "Does federal law restrict municipal home design requirements?",
+    "passed": true,
+    "grounded": true,
+    "unverified": [],
+    "abstention_ok": true,
+    "declined_in_words": true,
+    "cited_nothing": false,
+    "expected_sections": [],
+    "matched_sections": [],
+    "citation_recall": null,
+    "missing_phrases": [],
+    "forbidden_present": [],
+    "answer": "No \u2014 I don't find anything in the retrieved federal excerpts that restricts municipal home design requirements.\n\nThe federal material here (H.R. 1) touches housing and homes only in unrelated ways: an exception to the percentage-of-completion accounting method for certain residential construction contracts [hr1-enrolled:70430:0], termination of the new energy efficient home credit [hr1-enrolled:70508:0], and Medicaid provisions on home equity limits and home or community-based services [hr1-enrolled:71108:0] [hr1-enrolled:71121:1]. None of these address municipal zoning, design standards, or land-use regulation.\n\nWhat does address that subject is an **Arizona** bill, not federal law: Arizona S.B. 1229, which is engrossed (passed one chamber, not enacted). It would add A.R.S. \u00a7\u00a7 9-461.19 and 9-461.20, barring a municipality from interfering with a home buyer's choice of features, floor plan, and interior/exterior design, and from requiring screening, walls, or fences on residential property [az-sb1229:1:2]. A companion section would bar municipalities from imposing design, architectural, or aesthetic requirements on single-family homes (with exceptions for historic districts), along with limits on minimum lot sizes, setbacks, and lot coverage \u2014 applicable to developments built after the effective date in municipalities over 70,000 people [az-sb1229:1:2]. Because that is state legislation and not yet law, it cannot answer a question about federal law.\n\nIf you are looking for a federal preemption of local design rules, I would need excerpts from a federal statute on housing or land use; nothing in this corpus supplies one."
+  }
+]

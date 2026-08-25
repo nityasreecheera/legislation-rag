@@ -14,6 +14,7 @@
 documents:
   BILLS-119hr1enr.pdf:
     doc_id: hr1-enrolled
+    version_group: hr1
     title: "H.R. 1 (119th Congress), Enrolled"
     stage: enrolled
     stage_order: 3
@@ -28,6 +29,7 @@ documents:
 
   Xthe_one_big_beautiful_bill_act.pdf:
     doc_id: hr1-senate-substitute
+    version_group: hr1
     title: "H.R. 1, Senate Substitute Amendment (S.L.C.)"
     stage: senate_substitute
     stage_order: 2
@@ -43,6 +45,7 @@ documents:
 
   Xone_big_beautiful_bill_act_-_full_bill_text.pdf:
     doc_id: hr1-house-passed
+    version_group: hr1
     title: "H.R. 1, House Committee on the Budget reported text"
     stage: house_passed
     stage_order: 1
@@ -74,3 +77,78 @@ documents:
       Image-only PDF - every page is a full-page PNG at 144 DPI with no text
       layer, so it requires OCR. Charts carry data that OCR cannot recover;
       figure regions are marked rather than silently dropped.
+
+  # ---------------------------------------------------------------------------
+  # Arizona. A second jurisdiction, and the only non-PDF inputs in the corpus.
+  #
+  # `jurisdiction` exists because `authority` alone would be misleading here.
+  # These bills are engrossed - passed one chamber, not enacted - so they are
+  # `proposal`, the same label the federal drafts carry. Without a jurisdiction
+  # field, "the House version proposed..." and "an Arizona bill proposed..."
+  # collapse into one category, and a question about federal law could be
+  # answered from state text.
+  #
+  # `section_style: state` selects the "Section 1." / "Sec. 2." numbering these
+  # use, rather than the federal five-digit form.
+  # ---------------------------------------------------------------------------
+
+  "SB1229S– “Arizona Starter Homes Act”.pdf":
+    doc_id: az-sb1229
+    title: "Arizona SB 1229 (2025), Senate Engrossed - \"Arizona Starter Homes Act\""
+    stage: engrossed
+    stage_order: null
+    authority: proposal
+    doc_type: statute
+    jurisdiction: arizona
+    section_style: state
+    chamber: senate
+    date: 2025
+    note: >
+      Municipal planning and home-design restrictions; amends Title 9, Chapter 4,
+      Article 6, Arizona Revised Statutes. Engrossed means passed the Senate
+      only - not law.
+
+  "HB2681 - 571R - H Ver Abortion Medication Restrictions.mhtml":
+    doc_id: az-hb2681
+    title: "Arizona HB 2681 (2025), House Engrossed - abortion-inducing drugs; requirements"
+    stage: engrossed
+    stage_order: null
+    authority: proposal
+    doc_type: statute
+    jurisdiction: arizona
+    section_style: state
+    chamber: house
+    date: 2025
+    note: >
+      Amends ARS 36-2160. Saved from azleg.gov as MHTML - a MIME container from
+      a browser "save page", with quoted-printable encoded HTML parts. No page
+      structure, so sections are the citation anchor.
+
+  "Arizona-2025-SB1111-Engrossed-&#x22;Immigration 'Bounty' Program&#x22;.html":
+    doc_id: az-sb1111
+    title: "Arizona SB 1111 (2025), Senate Engrossed - illegal alien remittance fee (post-striker)"
+    stage: engrossed
+    stage_order: null
+    authority: proposal
+    doc_type: statute
+    jurisdiction: arizona
+    section_style: state
+    chamber: senate
+    date: 2025
+    note: >
+      A strike-everything amendment, and the reason no single field can be
+      trusted as this document's subject.
+
+      Its own caption still reads "nonhealth regulatory boards; challenges;
+      prohibition (now: ______)" and its purpose clause reads "relating to
+      _______________" - both left blank when the original text was struck. The
+      operative text adds ARTICLE 3, "ILLEGAL ALIEN REMITTANCE FEE", to Title 6,
+      Chapter 12 A.R.S.: a fee on foreign wire transfers funding deportation
+      grants, with an offsetting income tax credit under a new section 43-1080.
+
+      So the FILENAME ("Immigration 'Bounty' Program") describes the current
+      content correctly, while the document's OWN caption is the stale half.
+      That is the opposite of the usual assumption. The lesson is not "trust
+      the document over the filename" but that a striker leaves a document
+      internally inconsistent, and only the enacting text is reliable - which
+      is what the pipeline reads. Word-exported HTML, mostly CSS boilerplate.
